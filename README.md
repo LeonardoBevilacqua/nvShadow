@@ -26,27 +26,6 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
 - "stevearc/conform.nvim"
 - "neovim/nvim-lspconfig"
 - "nvim-treesitter/nvim-treesitter"
-    ```lua
-      {
-          "nvim-treesitter/nvim-treesitter",
-          opts = {
-            ensure_installed = {
-              "vim",
-              "lua",
-              "vimdoc",
-              "html",
-              "css",
-              "java",
-              "markdown",
-              "json",
-              "angular",
-              "scss",
-              "javascript",
-              "typescript"
-            },
-          },
-        },
-    ```
 - "iamcco/markdown-preview.nvim"
     ```lua
       {
