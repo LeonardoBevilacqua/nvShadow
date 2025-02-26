@@ -6,27 +6,18 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
 - [ ] Add and document all plugins
 - [ ] Configure plugins using the same standard.
 - [ ] Document all key bindings.
-    ```lua
-    local map = vim.keymap.set
-
-    map("n", ";", ":", { desc = "CMD enter command mode" })
-    map("i", "jk", "<ESC>")
-    -- spell
-    map("n", "<leader>ss", "<cmd>set spell<CR>", {desc = "[S]et [S]pell"})
-    map("n", "<leader>sns", "<cmd>set nospell<CR>", {desc = "[S]et [N]o [S]pell"})
-    ```
 - [ ] Add spell check `pt.utf-8.spl`.
     - In `options.lua`: `vim.opt.spelllang="en,pt_br"`
-- [ ] Add highlight when yank.
-- [ ] Add scrolloffset.
-- [ ] Add backspace with `<C-h>` in insert mode.
-- [ ] Add onedark theme.
+- [x] Add highlight when yank.
+- [x] Add scrolloffset.
+- [x] Add backspace with `<C-h>` in insert mode.
+- [x] Add onedark theme.
 ## Plugins
 
-- "stevearc/conform.nvim"
-- "neovim/nvim-lspconfig"
-- "nvim-treesitter/nvim-treesitter"
-- "iamcco/markdown-preview.nvim"
+- [ ] "stevearc/conform.nvim"
+- [ ] "neovim/nvim-lspconfig"
+- [x] "nvim-treesitter/nvim-treesitter"
+- [ ] "iamcco/markdown-preview.nvim"
     ```lua
       {
         "iamcco/markdown-preview.nvim",
@@ -38,7 +29,7 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
         ft = { "markdown" },
       },
    ```
-- "kevinhwang91/nvim-ufo"
+- [ ] "kevinhwang91/nvim-ufo"
     ```lua
   {
     "kevinhwang91/nvim-ufo",

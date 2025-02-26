@@ -21,6 +21,3 @@ vim.opt.ignorecase = true
 
 vim.opt.termguicolors = true
 
--- setup leader key
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
