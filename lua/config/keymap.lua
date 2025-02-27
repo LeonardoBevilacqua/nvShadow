@@ -54,3 +54,18 @@ map(normalMode, leader .. "x", getCommand("bdelete"), { desc = "Close buffer" })
 
 -- explorer
 map(normalMode, getCtrlCommand("n"), ":Explore" .. enter, { desc = "Open Explorer" })
+
+return {
+    normalMode = normalMode,
+    visualMode = visualMode,
+    terminalMode = terminalMode,
+    insertMode = insertMode,
+    cmd = cmd,
+    enter = enter,
+    esc = esc,
+    leader = leader,
+    map = map,
+    getCommand = getCommand,
+    getCtrlCommand = getCtrlCommand
+}
+
