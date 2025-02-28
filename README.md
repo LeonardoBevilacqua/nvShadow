@@ -14,8 +14,8 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
 - [x] Add onedark theme.
 ## Plugins
 
-- [ ] "stevearc/conform.nvim"
-- [ ] "neovim/nvim-lspconfig"
+- [x] "stevearc/conform.nvim"
+- [x] "neovim/nvim-lspconfig"
 - [x] "nvim-treesitter/nvim-treesitter"
 - [ ] "iamcco/markdown-preview.nvim"
     ```lua
@@ -30,3 +30,4 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
       },
    ```
 - [x] "kevinhwang91/nvim-ufo"
+- Add missing plugins

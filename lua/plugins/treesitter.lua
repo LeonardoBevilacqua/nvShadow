@@ -1,6 +1,7 @@
 return {
     "nvim-treesitter/nvim-treesitter",
     config = function()
+        local leader = require("config.keymap").leader
         require("nvim-treesitter.configs").setup({
             ensure_installed = { 
                 "c", 
@@ -28,10 +29,10 @@ return {
                 enable = true,
                 keymaps = { 
                     -- TODO: Document keys
-                    init_selection = "<Leader>ss",
-                    node_incremental = "<Leader>si", 
-                    scope_incremental = "<Leader>sc", 
-                    node_decremental = "<Leader>sd", 
+                    init_selection = leader .. "ss",
+                    node_incremental = leader .. "si", 
+                    scope_incremental = leader .. "sc", 
+                    node_decremental = leader .. "sd", 
                 }, 
             }, 
         })
