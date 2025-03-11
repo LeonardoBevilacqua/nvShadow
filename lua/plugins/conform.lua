@@ -17,7 +17,6 @@ return {
 			})
 
 			local keymap = require("config.keymap")
-			print(keymap.leader)
 			keymap.map(keymap.normalMode, keymap.leader .. "fm", function()
 				require("conform").format({ lsp_fallback = true })
 			end, { desc = "general format file" })
