@@ -12,9 +12,12 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
 - [x] Add scrolloffset.
 - [x] Add backspace with `<C-h>` in insert mode.
 - [x] Add onedark theme.
+- [ ] Add tab keybinds.
+    - tabnew, tabnext, tabprevious, tabclose.
 ## Plugins
 
 - [x] "stevearc/conform.nvim"
+- [x] "zapling/mason-conform.nvim",
 - [x] "neovim/nvim-lspconfig"
 - [x] "nvim-treesitter/nvim-treesitter"
 - [ ] "iamcco/markdown-preview.nvim"
@@ -30,4 +33,7 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
       },
    ```
 - [x] "kevinhwang91/nvim-ufo"
+- [x] "nvim-lualine/lualine.nvim"
+- [x] "williamboman/mason.nvim",
+- [x] "williamboman/mason-lspconfig.nvim",
 - Add missing plugins
