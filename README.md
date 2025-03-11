@@ -17,7 +17,7 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
 ## Plugins
 
 - [x] "stevearc/conform.nvim"
-- [x] "zapling/mason-conform.nvim",
+- [x] "zapling/mason-conform.nvim"
 - [x] "neovim/nvim-lspconfig"
 - [x] "nvim-treesitter/nvim-treesitter"
 - [ ] "iamcco/markdown-preview.nvim"
@@ -34,6 +34,7 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
    ```
 - [x] "kevinhwang91/nvim-ufo"
 - [x] "nvim-lualine/lualine.nvim"
-- [x] "williamboman/mason.nvim",
-- [x] "williamboman/mason-lspconfig.nvim",
+- [x] "williamboman/mason.nvim"
+- [x] "williamboman/mason-lspconfig.nvim"
+= [x] "saghen/blink.cmp"
 - Add missing plugins
