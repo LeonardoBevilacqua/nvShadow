@@ -41,4 +41,8 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
 - [ ] "indent-blankline.nvim"
 - [ ] "nvim-autopairs"
 - [ ] "bufferline.nvim"
+- [x] "folke/which-key.nvim"
+- [ ] "lewis6991/gitsigns.nvim"
+- [ ] "windwp/nvim-autopairs"
+- [ ] "nvim-telescope/telescope.nvim"
 - Add missing plugins

@@ -12,5 +12,6 @@
   "nvim-ufo": { "branch": "main", "commit": "c070ee849bfedb2ed778f60419a1eae8c8544be8" },
   "nvim-web-devicons": { "branch": "master", "commit": "ab4cfee554e501f497bce0856788d43cf2eb93d7" },
   "onedarkpro.nvim": { "branch": "main", "commit": "b2712b3163f2b531cc26d1af07f49f683460e5a3" },
-  "promise-async": { "branch": "main", "commit": "119e8961014c9bfaf1487bf3c2a393d254f337e2" }
+  "promise-async": { "branch": "main", "commit": "119e8961014c9bfaf1487bf3c2a393d254f337e2" },
+  "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" }
 }
