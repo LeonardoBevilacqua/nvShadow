@@ -39,7 +39,7 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
 - [x] "saghen/blink.cmp"
 - [ ] "gitsigns.nvim"
 - [ ] "indent-blankline.nvim"
-- [ ] "nvim-autopairs"
+- [x] "nvim-autopairs"
 - [ ] "bufferline.nvim"
 - [x] "folke/which-key.nvim"
 - [ ] "lewis6991/gitsigns.nvim"
