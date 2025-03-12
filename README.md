@@ -36,5 +36,9 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
 - [x] "nvim-lualine/lualine.nvim"
 - [x] "williamboman/mason.nvim"
 - [x] "williamboman/mason-lspconfig.nvim"
-= [x] "saghen/blink.cmp"
+- [x] "saghen/blink.cmp"
+- [ ] "gitsigns.nvim"
+- [ ] "indent-blankline.nvim"
+- [ ] "nvim-autopairs"
+- [ ] "bufferline.nvim"
 - Add missing plugins
