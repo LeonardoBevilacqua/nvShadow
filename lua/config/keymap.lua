@@ -9,11 +9,11 @@ local leader = "<Leader>"
 local map = vim.keymap.set
 
 local function getCommand(command)
-    return cmd .. command .. enter
+	return cmd .. command .. enter
 end
 
 local function getCtrlCommand(command)
-    return "<C-" .. command .. ">"
+	return "<C-" .. command .. ">"
 end
 
 -- setup leader key
@@ -30,10 +30,30 @@ map(normalMode, esc, getCommand("nohlsearch"), { desc = "Remove serach highlight
 map(insertMode, "jk", esc, { desc = "Leave insert mode" })
 
 -- window navigation
-map(normalMode, getCtrlCommand("h"), getCtrlCommand("w") .. getCtrlCommand("h"), { desc = "Move focus to the left window" })
-map(normalMode, getCtrlCommand("l"), getCtrlCommand("w") .. getCtrlCommand("l"), { desc = "Move focus to the right window" })
-map(normalMode, getCtrlCommand("j"), getCtrlCommand("w") .. getCtrlCommand("j"), { desc = "Move focus to the lower window" })
-map(normalMode, getCtrlCommand("k"), getCtrlCommand("w") .. getCtrlCommand("k"), { desc = "Move focus to the upper window" })
+map(
+	normalMode,
+	getCtrlCommand("h"),
+	getCtrlCommand("w") .. getCtrlCommand("h"),
+	{ desc = "Move focus to the left window" }
+)
+map(
+	normalMode,
+	getCtrlCommand("l"),
+	getCtrlCommand("w") .. getCtrlCommand("l"),
+	{ desc = "Move focus to the right window" }
+)
+map(
+	normalMode,
+	getCtrlCommand("j"),
+	getCtrlCommand("w") .. getCtrlCommand("j"),
+	{ desc = "Move focus to the lower window" }
+)
+map(
+	normalMode,
+	getCtrlCommand("k"),
+	getCtrlCommand("w") .. getCtrlCommand("k"),
+	{ desc = "Move focus to the upper window" }
+)
 
 -- Easily split windows
 map(normalMode, leader .. "wv", getCommand("vsplit"), { desc = "Window Split Vertical" })
@@ -44,8 +64,8 @@ map(visualMode, "<", "<gv", { desc = "Indent left in visual mode" })
 map(visualMode, ">", ">gv", { desc = "Indent right in visual mode" })
 
 -- spell
-map(normalMode, leader .. "ss", getCommand("set spell"), { desc = "Set spell" })
-map(normalMode, leader .. "sns", getCommand("set nospell"), { desc = "Set no spell" })
+map(normalMode, leader .. "Ss", getCommand("set spell"), { desc = "Set spell" })
+map(normalMode, leader .. "Sns", getCommand("set nospell"), { desc = "Set no spell" })
 
 -- buffers
 map(normalMode, "<Tab>", getCommand("bnext"), { desc = "Next buffer" })
@@ -56,16 +76,15 @@ map(normalMode, leader .. "x", getCommand("bdelete"), { desc = "Close buffer" })
 map(normalMode, getCtrlCommand("n"), ":Explore" .. enter, { desc = "Open Explorer" })
 
 return {
-    normalMode = normalMode,
-    visualMode = visualMode,
-    terminalMode = terminalMode,
-    insertMode = insertMode,
-    cmd = cmd,
-    enter = enter,
-    esc = esc,
-    leader = leader,
-    map = map,
-    getCommand = getCommand,
-    getCtrlCommand = getCtrlCommand
+	normalMode = normalMode,
+	visualMode = visualMode,
+	terminalMode = terminalMode,
+	insertMode = insertMode,
+	cmd = cmd,
+	enter = enter,
+	esc = esc,
+	leader = leader,
+	map = map,
+	getCommand = getCommand,
+	getCtrlCommand = getCtrlCommand,
 }
-

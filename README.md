@@ -6,7 +6,7 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
 - [ ] Add and document all plugins
 - [ ] Configure plugins using the same standard.
 - [ ] Document all key bindings.
-- [ ] Add spell check `pt.utf-8.spl`.
+- [x] Add spell check `pt.utf-8.spl`.
     - In `options.lua`: `vim.opt.spelllang="en,pt_br"`
 - [x] Add highlight when yank.
 - [x] Add scrolloffset.

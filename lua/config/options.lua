@@ -31,3 +31,6 @@ vim.opt.inccommand = "split"
 -- search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+
+-- spelling
+vim.opt.spelllang = "en,pt_br"
