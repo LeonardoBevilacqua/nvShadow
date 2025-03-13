@@ -30,5 +30,4 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
 - [x] "folke/which-key.nvim"
 - [x] "lewis6991/gitsigns.nvim"
 - [x] "windwp/nvim-autopairs"
-- [ ] "nvim-telescope/telescope.nvim"
-- Add missing plugins
+- [x] "nvim-telescope/telescope.nvim"
