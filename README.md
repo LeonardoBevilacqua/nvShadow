@@ -20,18 +20,7 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
 - [x] "zapling/mason-conform.nvim"
 - [x] "neovim/nvim-lspconfig"
 - [x] "nvim-treesitter/nvim-treesitter"
-- [ ] "iamcco/markdown-preview.nvim"
-    ```lua
-      {
-        "iamcco/markdown-preview.nvim",
-        cmd = { "markdownpreviewtoggle", "markdownpreview", "markdownpreviewstop" },
-        build = "cd app && npm install",
-        init = function()
-          vim.g.mkdp_filetypes = { "markdown" }
-        end,
-        ft = { "markdown" },
-      },
-   ```
+- [x] "iamcco/markdown-preview.nvim"
 - [x] "kevinhwang91/nvim-ufo"
 - [x] "nvim-lualine/lualine.nvim"
 - [x] "williamboman/mason.nvim"
