@@ -6,6 +6,7 @@ local cmd = "<cmd>"
 local enter = "<CR>"
 local esc = "<Esc>"
 local leader = "<Leader>"
+local bar = "<bar>"
 local map = vim.keymap.set
 
 local function getCommand(command)
@@ -58,6 +59,16 @@ map(
 -- Easily split windows
 map(normalMode, leader .. "wv", getCommand("vsplit"), { desc = "Window Split Vertical" })
 map(normalMode, leader .. "wh", getCommand("split"), { desc = "Window Split Horizontal" })
+
+-- Window resize
+map(normalMode, leader .. "w+", getCommand("resize +5"), { desc = "Window increase height" })
+map(normalMode, leader .. "w-", getCommand("resize -5"), { desc = "Window decrease height" })
+map(normalMode, leader .. "w>", getCommand("vertical resize +5"), { desc = "Window decrease width" })
+map(normalMode, leader .. "w<", getCommand("vertical resize -5"), { desc = "Window increase width" })
+map(normalMode, leader .. "w=", getCommand("wincmd ="), { desc = "Window reset" })
+map(normalMode, leader .. "wW=", getCommand("vertical resize"), { desc = "Window width focus" })
+map(normalMode, leader .. "wH=", getCommand("resize"), { desc = "Window height focus" })
+map(normalMode, leader .. "wF", getCommand("resize") .. bar .. getCommand("vertical resize"), { desc = "Window focus" })
 
 -- Stay in indent mode
 map(visualMode, "<", "<gv", { desc = "Indent left in visual mode" })
