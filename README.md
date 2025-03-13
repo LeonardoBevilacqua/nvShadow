@@ -37,12 +37,11 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
 - [x] "williamboman/mason.nvim"
 - [x] "williamboman/mason-lspconfig.nvim"
 - [x] "saghen/blink.cmp"
-- [ ] "gitsigns.nvim"
 - [ ] "indent-blankline.nvim"
 - [x] "nvim-autopairs"
 - [ ] "bufferline.nvim"
 - [x] "folke/which-key.nvim"
-- [ ] "lewis6991/gitsigns.nvim"
+- [x] "lewis6991/gitsigns.nvim"
 - [ ] "windwp/nvim-autopairs"
 - [ ] "nvim-telescope/telescope.nvim"
 - Add missing plugins
