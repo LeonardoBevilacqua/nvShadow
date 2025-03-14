@@ -86,6 +86,16 @@ map(normalMode, leader .. "x", getCommand("bdelete"), { desc = "Close buffer" })
 -- explorer
 map(normalMode, getCtrlCommand("n"), ":Explore" .. enter, { desc = "Open Explorer" })
 
+-- terminal
+map(normalMode, "<M-h>", function()
+	vim.cmd("hor term")
+	vim.api.nvim_win_set_height(0, 5)
+end, { desc = "Open horizontal terminal" })
+map(normalMode, "<M-v>", function()
+	vim.cmd("vert term")
+	vim.api.nvim_win_set_width(0, 40)
+end, { desc = "Open vertical terminal" })
+
 return {
 	normalMode = normalMode,
 	visualMode = visualMode,
