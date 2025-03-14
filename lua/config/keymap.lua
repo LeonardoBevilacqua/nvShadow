@@ -89,11 +89,13 @@ map(normalMode, getCtrlCommand("n"), ":Explore" .. enter, { desc = "Open Explore
 -- terminal
 map(normalMode, "<M-h>", function()
 	vim.cmd("hor term")
-	vim.api.nvim_win_set_height(0, 5)
+	vim.api.nvim_win_set_height(0, math.floor(vim.o.lines * 0.25))
 end, { desc = "Open horizontal terminal" })
 map(normalMode, "<M-v>", function()
 	vim.cmd("vert term")
-	vim.api.nvim_win_set_width(0, 40)
+	if vim.bo[0].buftype ~= "terminal" then
+		vim.api.nvim_win_set_width(0, math.floor(vim.o.columns * 0.25))
+	end
 end, { desc = "Open vertical terminal" })
 
 return {
