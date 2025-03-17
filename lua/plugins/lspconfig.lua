@@ -2,7 +2,9 @@ return {
 	"neovim/nvim-lspconfig",
 	dependencies = { "saghen/blink.cmp" },
 	config = function()
-		local capabilities = require("blink.cmp").get_lsp_capabilities()
+		local clientCapabilities = vim.lsp.protocol.make_client_capabilities()
+		local blinkCapabilities = require("blink.cmp").get_lsp_capabilities()
+		local capabilities = vim.tbl_deep_extend("force", clientCapabilities, blinkCapabilities)
 		local lspconfig = require("lspconfig")
 		local languages = require("config.languages")
 

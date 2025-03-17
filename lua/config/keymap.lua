@@ -33,6 +33,7 @@ map(normalMode, ";", ":", { desc = "CMD enter command mode" })
 map(terminalMode, esc .. esc, getCtrlCommand("\\") .. getCtrlCommand("n"), { desc = "Exit terminal mode" })
 map(normalMode, esc, getCommand("nohlsearch"), { desc = "Remove serach highlights" })
 map(insertMode, "jk", esc, { desc = "Leave insert mode" })
+map({ insertMode, normalMode, visualMode }, "<C-C>", esc, { desc = "Make Ctrl+C behave exactly like escape." })
 
 -- window navigation
 map(
@@ -94,6 +95,9 @@ map(normalMode, getCtrlCommand("n"), ":Explore" .. enter, { desc = "Open Explore
 map(normalMode, getAltCommand("h"), getCommand("Horterminal"), { desc = "Open horizontal terminal" })
 map(normalMode, getAltCommand("v"), getCommand("Vertterminal"), { desc = "Open vertical terminal" })
 map({ normalMode, terminalMode }, getAltCommand("t"), getCommand("Floatterminal"), { desc = "Open floating terminal" })
+
+-- global lsp mappings
+map(normalMode, leader .. "ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 
 return {
 	normalMode = normalMode,
