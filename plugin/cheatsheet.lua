@@ -73,7 +73,7 @@ local function show_cheatsheet(search_term)
 	end
 
 	if not vim.api.nvim_win_is_valid(state.floating.win) then
-		state.floating = require("plugin.floating_window").create_floating_window({ buf = -1 })
+		state.floating = require("config.floating_window").create_floating_window({ buf = -1 })
 		api.nvim_buf_set_lines(state.floating.buf, 0, -1, false, lines)
 		api.nvim_buf_set_option(state.floating.buf, "modifiable", false)
 		api.nvim_buf_set_option(state.floating.buf, "readonly", true)
