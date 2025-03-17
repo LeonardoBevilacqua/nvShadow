@@ -99,6 +99,9 @@ map({ normalMode, terminalMode }, getAltCommand("t"), getCommand("Floatterminal"
 -- global lsp mappings
 map(normalMode, leader .. "ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 
+-- cheatsheet
+map(normalMode, leader .. "cs", getCommand("Cheatsheet"), { desc = "Open cheatsheet" })
+
 return {
 	normalMode = normalMode,
 	visualMode = visualMode,
