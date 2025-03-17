@@ -85,7 +85,7 @@ map(normalMode, leader .. "Sns", getCommand("set nospell"), { desc = "Set no spe
 -- buffers
 map(normalMode, "<Tab>", getCommand("bnext"), { desc = "Next buffer" })
 map(normalMode, "<S-Tab>", getCommand("bprevious"), { desc = "Previous buffer" })
-map(normalMode, leader .. "x", getCommand("bdelete"), { desc = "Close buffer" })
+map(normalMode, leader .. "x", getCommand("confirm bdelete"), { desc = "Close buffer" })
 
 -- explorer
 map(normalMode, getCtrlCommand("n"), ":Explore" .. enter, { desc = "Open Explorer" })
