@@ -1,7 +1,16 @@
 return {
 	{
 		"saghen/blink.cmp",
-		dependencies = "rafamadriz/friendly-snippets",
+		dependencies = {
+			"L3MON4D3/LuaSnip",
+			version = "v2.*",
+			dependencies = "rafamadriz/friendly-snippets",
+			opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+			config = function(_, opts)
+				require("luasnip").config.set_config(opts)
+				require("luasnip.loaders.from_vscode").lazy_load()
+			end,
+		},
 		version = "*",
 		config = function()
 			require("blink.cmp").setup({
@@ -17,6 +26,7 @@ return {
 					nerd_font_variant = "mono",
 				},
 				signature = { enabled = true },
+				snippets = { preset = "luasnip" },
 			})
 		end,
 	},

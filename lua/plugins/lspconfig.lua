@@ -1,44 +1,62 @@
 return {
 	"neovim/nvim-lspconfig",
-	dependencies = { "saghen/blink.cmp" },
+	lazy = false,
+	dependencies = {
+		{ "williamboman/mason.nvim", opts = {} },
+		"williamboman/mason-lspconfig.nvim",
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		{ "j-hui/fidget.nvim", opts = {} },
+		"saghen/blink.cmp",
+	},
 	config = function()
-		local clientCapabilities = vim.lsp.protocol.make_client_capabilities()
-		local blinkCapabilities = require("blink.cmp").get_lsp_capabilities()
-		local capabilities = vim.tbl_deep_extend("force", clientCapabilities, blinkCapabilities)
-		local lspconfig = require("lspconfig")
-		local languages = require("config.languages")
+		vim.diagnostic.config({
+			severity_sort = true,
+			float = { border = "rounded", source = "if_many" },
+			underline = { severity = vim.diagnostic.severity.ERROR },
+			signs = vim.g.have_nerd_font and {
+				text = {
+					[vim.diagnostic.severity.ERROR] = "󰅚 ",
+					[vim.diagnostic.severity.WARN] = "󰀪 ",
+					[vim.diagnostic.severity.INFO] = "󰋽 ",
+					[vim.diagnostic.severity.HINT] = "󰌶 ",
+				},
+			} or {},
+			virtual_text = {
+				source = "if_many",
+				spacing = 2,
+				format = function(diagnostic)
+					local diagnostic_message = {
+						[vim.diagnostic.severity.ERROR] = diagnostic.message,
+						[vim.diagnostic.severity.WARN] = diagnostic.message,
+						[vim.diagnostic.severity.INFO] = diagnostic.message,
+						[vim.diagnostic.severity.HINT] = diagnostic.message,
+					}
+					return diagnostic_message[diagnostic.severity]
+				end,
+			},
+		})
 
-		for _, lspLanguage in ipairs(languages.lspLanguages) do
-			lspconfig[lspLanguage].setup({ capabilities = capabilities })
-		end
+		local servers = require("config.languages").servers
 
-		local keymap = require("config.keymap")
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
 
-		keymap.map(keymap.normalMode, "gD", vim.lsp.buf.declaration, { desc = "LSP Go to declaration" })
-		keymap.map(keymap.normalMode, "gd", vim.lsp.buf.definition, { desc = "LSP Go to definition" })
-		keymap.map(keymap.normalMode, "gi", vim.lsp.buf.implementation, { desc = "LSP Go to implementation" })
-		keymap.map(keymap.normalMode, "<leader>sh", vim.lsp.buf.signature_help, { desc = "LSP Show signature help" })
-		keymap.map(
-			keymap.normalMode,
-			"<leader>wa",
-			vim.lsp.buf.add_workspace_folder,
-			{ desc = "LSP Add workspace folder" }
-		)
-		keymap.map(
-			keymap.normalMode,
-			"<leader>wr",
-			vim.lsp.buf.remove_workspace_folder,
-			{ desc = "LSP Remove workspace folder" }
-		)
+		local ensure_installed = vim.tbl_keys(servers or {})
+		vim.list_extend(ensure_installed, {
+			"stylua", -- Used to format Lua code
+		})
+		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-		keymap.map(keymap.normalMode, "<leader>wl", function()
-			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-		end, { desc = "LSP List workspace folders" })
-
-		keymap.map(keymap.normalMode, "<leader>D", vim.lsp.buf.type_definition, { desc = "LSP Go to type definition" })
-		keymap.map(keymap.normalMode, "<leader>ra", vim.lsp.buf.rename, { desc = "LSP rename" })
-
-		keymap.map({ keymap.normalMode, "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code action" })
-		keymap.map(keymap.normalMode, "gr", vim.lsp.buf.references, { desc = "LSP Show references" })
+		require("mason-lspconfig").setup({
+			ensure_installed = {},
+			automatic_installation = false,
+			handlers = {
+				function(server_name)
+					local server = servers[server_name] or {}
+					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+					require("lspconfig")[server_name].setup(server)
+				end,
+			},
+		})
 	end,
 }
