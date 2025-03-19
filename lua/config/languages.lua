@@ -10,6 +10,10 @@ local servers = {
 	},
 	ts_ls = {},
 	pylsp = {},
+	html = {},
+	cssls = {},
+	tailwindcss = {},
+	eslint = {},
 }
 
 return { servers = servers }

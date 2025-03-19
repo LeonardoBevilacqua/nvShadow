@@ -8,6 +8,10 @@ return {
 					lua = { "stylua" },
 					css = { "prettier" },
 					html = { "prettier" },
+					typescriptreact = { "prettier" },
+					javascriptreact = { "prettier" },
+					typescript = { "prettier" },
+					javascript = { "prettier" },
 				},
 				format_on_save = {
 					-- These options will be passed to conform.format()
