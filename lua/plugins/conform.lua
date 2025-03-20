@@ -58,8 +58,8 @@ return {
 			})
 
 			local keymap = require("config.keymap")
-			keymap.map(keymap.normalMode, keymap.leader .. "fm", function()
-				require("conform").format({ lsp_fallback = true })
+			keymap.map({ keymap.normalMode, keymap.visualMode }, keymap.leader .. "fm", function()
+				require("conform").format({ async = true, lsp_fallback = true })
 			end, { desc = "general format file" })
 
 			vim.api.nvim_create_user_command("FormatDisable", function(args)
