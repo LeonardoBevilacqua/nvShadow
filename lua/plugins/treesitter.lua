@@ -21,6 +21,7 @@ return {
 				"javascript",
 				"typescript",
 				"tsx",
+				"angular",
 			},
 			auto_install = true,
 			highlight = {
