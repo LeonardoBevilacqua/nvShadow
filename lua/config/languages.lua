@@ -25,6 +25,7 @@ local servers = {
 		end,
 	},
 	angularls = {},
+	jdtls = {},
 }
 
 return { servers = servers }
