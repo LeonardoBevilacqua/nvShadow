@@ -1,6 +1,10 @@
 return {
 	{
 		"joeveiga/ng.nvim",
+		cond = function()
+			-- Check if angular.json exists in the current directory or anywhere in the project
+			return vim.fn.filereadable(vim.fn.findfile("angular.json", ".")) > 0
+		end,
 		config = function()
 			local ng = require("ng")
 			local keymap = require("config.keymap")
