@@ -12,7 +12,6 @@ return {
 				"query",
 				"html",
 				"css",
-				"java",
 				"markdown",
 				"markdown_inline",
 				"json",
