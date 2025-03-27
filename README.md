@@ -17,3 +17,4 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
 ## Plugins
 
 - [ ] "indent-blankline.nvim"
+- [ ] replace jester with nvim-neotest/neotest
