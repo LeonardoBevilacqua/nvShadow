@@ -98,17 +98,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-	desc = "Jest commands",
-	group = vim.api.nvim_create_augroup("jester-command", { clear = true }),
-	pattern = { "typescript", "javascript" },
-	callback = function()
-		local keymap = require("config.keymap")
-		local jester = require("jester")
-
-		keymap.map(keymap.normalMode, keymap.leader .. "tc", jester.run, { desc = "JEST test current" })
-		keymap.map(keymap.normalMode, keymap.leader .. "tf", jester.run_file, { desc = "JEST test file" })
-		keymap.map(keymap.normalMode, keymap.leader .. "Tc", jester.debug, { desc = "JEST test debug current" })
-		keymap.map(keymap.normalMode, keymap.leader .. "Tc", jester.debug_file, { desc = "JEST test debug file" })
-	end,
-})
+--vim.api.nvim_create_autocmd("FileType", {
+--desc = "Jest commands",
+--group = vim.api.nvim_create_augroup("jester-command", { clear = true }),
+--pattern = { "typescript", "javascript" },
+--callback = function()
+--local keymap = require("config.keymap")
+--local jester = require("jester")
+--
+--keymap.map(keymap.normalMode, keymap.leader .. "tc", jester.run, { desc = "JEST test current" })
+--keymap.map(keymap.normalMode, keymap.leader .. "tf", jester.run_file, { desc = "JEST test file" })
+--keymap.map(keymap.normalMode, keymap.leader .. "Tc", jester.debug, { desc = "JEST test debug current" })
+--keymap.map(keymap.normalMode, keymap.leader .. "Tc", jester.debug_file, { desc = "JEST test debug file" })
+--end,
+--})

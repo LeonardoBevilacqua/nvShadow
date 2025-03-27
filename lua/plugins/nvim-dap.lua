@@ -5,7 +5,7 @@ return {
 		"nvim-neotest/nvim-nio",
 		"williamboman/mason.nvim",
 		"jay-babu/mason-nvim-dap.nvim",
-		"mfussenegger/nvim-dap-python",
+		{ "mfussenegger/nvim-dap-python", ft = "python" },
 	},
 	keys = {
 		{
