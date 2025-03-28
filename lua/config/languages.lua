@@ -1,3 +1,13 @@
+local ensure_installed = {
+	"lua_ls",
+	"ts_ls",
+	"pylsp",
+	"html",
+	"cssls",
+	"tailwindcss",
+	"eslint",
+	{ "angularls", version = "15.2.1" },
+}
 local servers = {
 	lua_ls = {
 		settings = {
@@ -27,4 +37,4 @@ local servers = {
 	angularls = {},
 }
 
-return { servers = servers }
+return { servers = servers, ensure_installed = ensure_installed }
