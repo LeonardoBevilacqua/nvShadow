@@ -40,7 +40,6 @@ return {
 		})
 	end,
 	keys = {
-		{ keymap.leader .. "t", "", desc = "+test" },
 		{
 			keymap.leader .. "tt",
 			function()
