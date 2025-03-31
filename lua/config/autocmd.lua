@@ -98,10 +98,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
---vim.api.nvim_create_autocmd("FileType", {
+--vim.api.nvim_create_autocmd("BufEnter", {
 --desc = "Jest commands",
 --group = vim.api.nvim_create_augroup("jester-command", { clear = true }),
---pattern = { "typescript", "javascript" },
+--pattern = { "javascript", "*.spec.ts" },
 --callback = function()
 --local keymap = require("config.keymap")
 --local jester = require("jester")
