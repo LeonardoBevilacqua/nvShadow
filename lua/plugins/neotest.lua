@@ -1,4 +1,7 @@
 local keymap = require("config.keymap")
+local function normalize_path(path)
+	return path:gsub("\\", "/")
+end
 
 return {
 	"nvim-neotest/neotest",
@@ -14,26 +17,19 @@ return {
 			return vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
 		end
 
-		local function normalize_path(path)
-			local sep = is_windows() and "\\" or "/"
-			return path:gsub("\\", "/"):gsub("//", "/")
-		end
-
 		require("neotest").setup({
 			adapters = {
 				require("neotest-jest")({
 					jestCommand = is_windows() and "npm.cmd test --" or "npm test --",
-					jestConfigFile = function()
-						local base_dir = normalize_path(vim.fn.getcwd())
-						if is_windows() then
-							return base_dir .. "\\jest.config.js"
-						else
-							return base_dir .. "/jest.config.js"
-						end
-					end,
+					jestConfigFile = "",
+					--jestCommand = is_windows() and "npx.cmd jest" or "npm test --",
+					--jestConfigFile = function()
+					--local base_dir = vim.fn.getcwd()
+					--return base_dir .. "/jest.config.js"
+					--end,
 					env = { CI = true },
 					cwd = function()
-						return normalize_path(vim.fn.getcwd())
+						return vim.fn.getcwd()
 					end,
 				}),
 			},
@@ -43,7 +39,7 @@ return {
 		{
 			keymap.leader .. "tt",
 			function()
-				require("neotest").run.run(vim.fn.expand("%"))
+				require("neotest").run.run(normalize_path(vim.fn.expand("%")))
 			end,
 			desc = "Run File (Neotest)",
 		},
