@@ -14,7 +14,9 @@ return {
 				lualine_z = { "location", "selectioncount" },
 			},
 			tabline = {
-				lualine_a = { "buffers" },
+				lualine_a = { { "buffers", filetype_names = {
+					oil = "Explore",
+				} } },
 				lualine_b = {},
 				lualine_c = {},
 				lualine_x = {},
