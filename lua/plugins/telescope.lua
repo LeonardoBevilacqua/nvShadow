@@ -17,6 +17,7 @@ return {
 						["<C-k>"] = require("telescope.actions").move_selection_previous,
 					},
 				},
+				wrap_results = true,
 			},
 		})
 		local keymap = require("config.keymap")
