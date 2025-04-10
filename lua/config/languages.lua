@@ -34,6 +34,15 @@ local servers = {
 				description = "Organize imports",
 			},
 		},
+		on_attach = function()
+			local keymap = require("config.keymap")
+			keymap.map(
+				keymap.normalMode,
+				keymap.leader .. "fM",
+				keymap.getCommand("OrganizeImports"),
+				{ desc = "general format imports" }
+			)
+		end,
 	},
 	pylsp = {},
 	html = { filetypes = { "html", "templ", "htmlangular" } },
