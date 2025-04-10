@@ -7,6 +7,13 @@ local function organize_imports()
 	vim.lsp.buf.execute_command(params)
 end
 
+local function omniSharpDLL()
+	local mason_registry = require("mason-registry")
+	local omnisharp_mason = mason_registry.get_package("omnisharp")
+	local omnisharp_path = omnisharp_mason:get_install_path()
+	return vim.fn.glob(omnisharp_path .. "/libexec/OmniSharp.dll")
+end
+
 local ensure_installed = {
 	"lua_ls",
 	"ts_ls",
@@ -16,6 +23,7 @@ local ensure_installed = {
 	"tailwindcss",
 	"eslint",
 	{ "angularls", version = "15.2.1" },
+	"omnisharp",
 }
 local servers = {
 	lua_ls = {
@@ -60,6 +68,27 @@ local servers = {
 		end,
 	},
 	angularls = {},
+	omnisharp = {
+		cmd = { "dotnet", omniSharpDLL() },
+
+		settings = {
+			FormattingOptions = {
+				EnableEditorConfigSupport = true,
+				OrganizeImports = nil,
+			},
+			MsBuild = {
+				LoadProjectsOnDemand = nil,
+			},
+			RoslynExtensionsOptions = {
+				EnableAnalyzersSupport = nil,
+				EnableImportCompletion = nil,
+				AnalyzeOpenDocumentsOnly = nil,
+			},
+			Sdk = {
+				IncludePrereleases = true,
+			},
+		},
+	},
 }
 
 return { servers = servers, ensure_installed = ensure_installed }
