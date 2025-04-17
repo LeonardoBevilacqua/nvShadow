@@ -1,9 +1,9 @@
 local keymap = require("config.keymap")
-local function normalize_path(path)
-	return path:gsub("\\", "/")
+local function is_windows()
+	return vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
 end
-
 return {
+	enabled = not is_windows(),
 	"nvim-neotest/neotest",
 	dependencies = {
 		"nvim-neotest/nvim-nio",
@@ -13,14 +13,10 @@ return {
 		"nvim-neotest/neotest-jest",
 	},
 	config = function()
-		local function is_windows()
-			return vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
-		end
-
 		require("neotest").setup({
 			adapters = {
 				require("neotest-jest")({
-					jestCommand = is_windows() and "npm.cmd test --" or "npm test --",
+					jestCommand = "npm test --",
 					jestConfigFile = "",
 					--jestCommand = is_windows() and "npx.cmd jest" or "npm test --",
 					--jestConfigFile = function()
@@ -39,7 +35,7 @@ return {
 		{
 			keymap.leader .. "tt",
 			function()
-				require("neotest").run.run(normalize_path(vim.fn.expand("%")))
+				require("neotest").run.run(vim.fn.expand("%"))
 			end,
 			desc = "Run File (Neotest)",
 		},

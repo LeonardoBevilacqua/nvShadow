@@ -34,3 +34,8 @@ vim.opt.smartcase = true
 
 -- spelling
 vim.opt.spelllang = "en,pt_br"
+
+-- shell
+vim.opt.shellcmdflag = "-c"
+vim.opt.shellslash = true
+vim.opt.shellquote = '\"'
