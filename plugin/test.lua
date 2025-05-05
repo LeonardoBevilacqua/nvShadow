@@ -85,7 +85,7 @@ end
 local jest_adapter = {
 	cmd = "npm run test",
 	file = function()
-		return join({ "--", vim.fn.expand("%") })
+		return join({ "--", vim.fn.expand("%"):gsub("\\", "/") })
 	end,
 	enabled = file_exists(vim.fn.getcwd() .. "/package.json"),
 }
