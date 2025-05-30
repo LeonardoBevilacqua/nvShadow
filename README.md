@@ -14,6 +14,7 @@ This repository holds the Configuration code for my NeoVim configuration for Ful
 - [x] Add onedark theme.
 - [ ] Add tab keybinds.
     - tabnew, tabnext, tabprevious, tabclose.
+- [ ] move keybinds to lazy "keys"
 ## Plugins
 
 - [ ] "indent-blankline.nvim"
