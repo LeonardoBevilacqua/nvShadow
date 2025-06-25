@@ -1,3 +1,17 @@
+local function get_pid_by_port_windows(port)
+	local cmd = string.format("netstat -ano | findstr :%d", port)
+	local handle = io.popen(cmd)
+	if handle == nil then
+		return 0
+	end
+
+	local result = handle:read("*a")
+	handle:close()
+
+	local pid = result:match("LISTENING%s+(%d+)")
+	return tonumber(pid)
+end
+
 return {
 	"mfussenegger/nvim-dap",
 	dependencies = {
@@ -108,5 +122,52 @@ return {
 		dap.listeners.before.event_exited["dapui_config"] = dapui.close
 
 		require("dap-python").setup("python3")
+
+		-- javascript
+		local mason_registry = require("mason-registry")
+		local node_debug2_mason = mason_registry.get_package("node-debug2-adapter")
+		local node_debug2_path = node_debug2_mason:get_install_path()
+
+		dap.adapters.node2 = {
+			type = "executable",
+			command = "node",
+			args = { vim.fn.glob(node_debug2_path .. "/out/src/nodeDebug.js") },
+		}
+		for _, lang in ipairs({ "javascript", "typescript" }) do
+			dap.configurations[lang] = {
+				{
+					name = "Launch",
+					type = "node2",
+					request = "launch",
+					program = "${file}",
+					cwd = vim.fn.getcwd(),
+					sourceMaps = true,
+					protocol = "inspector",
+					console = "integratedTerminal",
+					outFiles = { "**/dist/**/*.js" },
+				},
+				{
+					-- For this to work you need to make sure the node process is started with the `--inspect` flag.
+					name = "Attach to process",
+					type = "node2",
+					request = "attach",
+					processId = require("dap.utils").pick_process({
+						filter = function(proc)
+							local pid = get_pid_by_port_windows(9229)
+							if pid == 0 then
+								return vim.startswith(proc.name, "node")
+							end
+
+							if pid == proc.pid then
+								return true
+							end
+
+							return false
+						end,
+					}),
+					console = "integratedTerminal",
+				},
+			}
+		end
 	end,
 }
