@@ -9,6 +9,9 @@ local function get_pid_by_port_windows(port)
 	handle:close()
 
 	local pid = result:match("LISTENING%s+(%d+)")
+	if pid == nil then
+		return 0
+	end
 	return tonumber(pid)
 end
 
@@ -151,20 +154,23 @@ return {
 					name = "Attach to process",
 					type = "node2",
 					request = "attach",
-					processId = require("dap.utils").pick_process({
-						filter = function(proc)
-							local pid = get_pid_by_port_windows(9229)
-							if pid == 0 then
-								return vim.startswith(proc.name, "node")
-							end
+					processId = function()
+						return require("dap.utils").pick_process({
+							filter = function(proc)
+								print(vim.inspect("hey"))
+								local pid = get_pid_by_port_windows(9229)
+								if pid == 0 then
+									return vim.startswith(proc.name, "node")
+								end
 
-							if pid == proc.pid then
-								return true
-							end
+								if pid == proc.pid then
+									return true
+								end
 
-							return false
-						end,
-					}),
+								return false
+							end,
+						})
+					end,
 					console = "integratedTerminal",
 				},
 			}
