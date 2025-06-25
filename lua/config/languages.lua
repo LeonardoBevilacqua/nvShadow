@@ -67,7 +67,7 @@ local servers = {
 			client.config.settings.workingDirectory = { directory = client.config.root_dir }
 		end,
 	},
-	angularls = {},
+	angularls = { filetypes = { "htmlangular" } },
 	omnisharp = {
 		cmd = { "dotnet", omniSharpDLL() },
 
