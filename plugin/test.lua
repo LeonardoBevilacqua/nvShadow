@@ -2,6 +2,7 @@
 ---@field cmd string
 ---@field file fun(): string
 ---@field enabled boolean
+---@field debug string | nil
 
 ---@class TestConfig
 ---@field adapters Adapter[]
@@ -18,6 +19,20 @@ local function join(values, separator)
 	return table.concat(values, separator)
 end
 
+local base_opts = {
+	nargs = "*",
+	complete = function(arg_lead)
+		local options = { "debug" }
+		local matches = {}
+		for _, opt in ipairs(options) do
+			if opt:find("^" .. arg_lead) then
+				table.insert(matches, opt)
+			end
+		end
+		return matches
+	end,
+}
+
 ---@param cmd string
 M.run_term_cmd = function(cmd)
 	vim.cmd('hor term "' .. cmd .. '"')
@@ -28,14 +43,25 @@ end
 M.setup = function(config)
 	for _, adapter in ipairs(config.adapters) do
 		if adapter.enabled then
-			vim.api.nvim_create_user_command("TermTest", function()
-				M.run_term_cmd(adapter.cmd)
-			end, {})
+			vim.api.nvim_create_user_command("TermTest", function(opts)
+				if opts.args == "debug" and adapter.debug ~= nil then
+					M.run_term_cmd(adapter.debug)
+					return
+				end
 
-			vim.api.nvim_create_user_command("TermTestFile", function()
-				local cmd = join({ adapter.cmd, adapter.file() })
+				M.run_term_cmd(adapter.cmd)
+			end, base_opts)
+
+			vim.api.nvim_create_user_command("TermTestFile", function(opts)
+				local cmd = ""
+				if opts.args == "debug" and adapter.debug ~= nil then
+					cmd = join({ adapter.debug, adapter.file() })
+				else
+					cmd = join({ adapter.cmd, adapter.file() })
+				end
+
 				M.run_term_cmd(cmd)
-			end, {})
+			end, base_opts)
 
 			break
 		end
@@ -88,6 +114,7 @@ local jest_adapter = {
 		return join({ "--", vim.fn.expand("%"):gsub("\\", "/") })
 	end,
 	enabled = file_exists(vim.fn.getcwd() .. "/package.json"),
+	debug = "npm run --node-options --inspect test",
 }
 ---@type Adapter
 local dotnet_adapter = {
