@@ -4,7 +4,7 @@ local function organize_imports()
 		arguments = { vim.api.nvim_buf_get_name(0) },
 		title = "",
 	}
-	vim.lsp.buf.execute_command(params)
+	vim.lsp.buf.exec_cmd(params)
 end
 
 local function omniSharpDLL()
