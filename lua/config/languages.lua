@@ -8,10 +8,8 @@ local function organize_imports()
 end
 
 local function omniSharpDLL()
-	local mason_registry = require("mason-registry")
-	local omnisharp_mason = mason_registry.get_package("omnisharp")
-	local omnisharp_path = omnisharp_mason:get_install_path()
-	return vim.fn.glob(omnisharp_path .. "/libexec/OmniSharp.dll")
+	local omnisharp_path = vim.fn.stdpath("data") .. "/mason/packages/omnisharp"
+	return vim.fn.glob(omnisharp_path .. "/OmniSharp.dll")
 end
 
 local ensure_installed = {

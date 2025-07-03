@@ -127,9 +127,7 @@ return {
 		require("dap-python").setup("python3")
 
 		-- javascript
-		local mason_registry = require("mason-registry")
-		local node_debug2_mason = mason_registry.get_package("node-debug2-adapter")
-		local node_debug2_path = node_debug2_mason:get_install_path()
+		local node_debug2_path = vim.fn.stdpath("data") .. "/mason/packages/node-debug2-adapter"
 
 		dap.adapters.node2 = {
 			type = "executable",
