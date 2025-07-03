@@ -24,6 +24,7 @@ local ensure_installed = {
 	"eslint",
 	{ "angularls", version = "15.2.1" },
 	"omnisharp",
+	"jdtls",
 }
 local servers = {
 	lua_ls = {
@@ -89,6 +90,7 @@ local servers = {
 			},
 		},
 	},
+	jdtls = {},
 }
 
 return { servers = servers, ensure_installed = ensure_installed }
