@@ -20,7 +20,7 @@ local ensure_installed = {
 	"cssls",
 	"tailwindcss",
 	"eslint",
-	{ "angularls", version = "15.2.1" },
+	"angularls",
 	"omnisharp",
 	"jdtls",
 }
@@ -68,25 +68,12 @@ local servers = {
 	},
 	angularls = { filetypes = { "htmlangular" } },
 	omnisharp = {
-		cmd = { "dotnet", omniSharpDLL() },
 
-		settings = {
-			FormattingOptions = {
-				EnableEditorConfigSupport = true,
-				OrganizeImports = nil,
-			},
-			MsBuild = {
-				LoadProjectsOnDemand = nil,
-			},
-			RoslynExtensionsOptions = {
-				EnableAnalyzersSupport = nil,
-				EnableImportCompletion = nil,
-				AnalyzeOpenDocumentsOnly = nil,
-			},
-			Sdk = {
-				IncludePrereleases = true,
-			},
-		},
+		-- Optional: diagnostics, mappings, formatting, etc.
+		on_attach = function(_, bufnr)
+			print("OmniSharp attached to buffer " .. bufnr)
+			-- keymaps can go here if needed
+		end,
 	},
 	jdtls = {},
 }
