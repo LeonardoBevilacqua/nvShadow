@@ -102,6 +102,7 @@ map(normalMode, leader .. "dc", vim.diagnostic.open_float, { desc = "LSP diagnos
 
 -- cheatsheet
 map(normalMode, leader .. "cs", getCommand("Cheatsheet"), { desc = "Open cheatsheet" })
+map(normalMode, leader .. "vcs", getCommand("VimCheatsheet"), { desc = "Open Vim cheatsheet" })
 
 return {
 	normalMode = normalMode,
