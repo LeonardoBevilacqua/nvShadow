@@ -36,6 +36,10 @@ local function show_vim_cheatsheet()
 			title = "Reverse lines",
 			description = "Use the command `:global/^/move 0` or the short version `:g/^/m0`",
 		},
+		{
+			title = "Search and replace selection",
+			description = "Use `/` to search the text to be replaced, and use `:%s//new-string` to replace the last searched pattern",
+		},
 	}
 	for _, tip in ipairs(tips) do
 		table.insert(lines, format_tip(tip))
