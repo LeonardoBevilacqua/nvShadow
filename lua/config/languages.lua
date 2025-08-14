@@ -1,7 +1,7 @@
-local function omniSharpDLL()
-	local omnisharp_path = vim.fn.stdpath("data") .. "/mason/packages/omnisharp"
-	return vim.fn.glob(omnisharp_path .. "/OmniSharp.dll")
-end
+-- local function omniSharpDLL()
+-- 	local omnisharp_path = vim.fn.stdpath("data") .. "/mason/packages/omnisharp"
+-- 	return vim.fn.glob(omnisharp_path .. "/OmniSharp.dll")
+-- end
 
 local ensure_installed = {
 	"lua_ls",
