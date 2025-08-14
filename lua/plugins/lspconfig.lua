@@ -39,7 +39,12 @@ return {
 		local servers = require("config.languages").servers
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
+		capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, false))
+		capabilities = vim.tbl_deep_extend(
+			"force",
+			capabilities,
+			{ textDocument = { foldingRange = { dynamicRegistration = false, lineFoldingOnly = true } } }
+		)
 
 		local ensure_installed = require("config.languages").ensure_installed
 		vim.list_extend(ensure_installed, {
@@ -53,7 +58,7 @@ return {
 		})
 		for server_name, config in pairs(servers) do
 			local server = config or {}
-			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+			server.capabilities = vim.tbl_deep_extend("force", capabilities, server.capabilities or {})
 			vim.lsp.config(server_name, server)
 		end
 	end,
