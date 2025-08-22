@@ -26,6 +26,18 @@ local servers = {
 		},
 	},
 	vtsls = {
+		settings = {
+			typescript = {
+				tsserver = {
+					maxTsServerMemory = 8192, -- Example: 8GB (in MB)
+				},
+			},
+			javascript = {
+				tsserver = {
+					maxTsServerMemory = 8192, -- Example: 8GB (in MB)
+				},
+			},
+		},
 		reuse_client = function()
 			return true
 		end,
