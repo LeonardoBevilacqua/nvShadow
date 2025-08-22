@@ -33,7 +33,7 @@ return {
 	end,
 	keys = {
 		{
-			keymap.leader .. "tt",
+			keymap.leader .. "tf",
 			function()
 				require("neotest").run.run(vim.fn.expand("%"))
 			end,
