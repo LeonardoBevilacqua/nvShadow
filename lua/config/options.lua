@@ -27,6 +27,7 @@ vim.opt.cursorline = true
 vim.opt.wrap = false
 vim.opt.virtualedit = "block"
 vim.opt.inccommand = "split"
+vim.opt.winborder = "rounded"
 
 -- search
 vim.opt.ignorecase = true
