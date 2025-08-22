@@ -19,6 +19,10 @@ local function join(values, separator)
 	return table.concat(values, separator)
 end
 
+local function is_windows()
+	return vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
+end
+
 local base_opts = {
 	nargs = "*",
 	complete = function(arg_lead)
@@ -35,7 +39,11 @@ local base_opts = {
 
 ---@param cmd string
 M.run_term_cmd = function(cmd)
-	vim.cmd('hor term "' .. cmd .. '"')
+	if is_windows() then
+		vim.cmd('hor term "' .. cmd .. '"')
+	else
+		vim.cmd("hor term " .. cmd)
+	end
 	vim.api.nvim_win_set_height(0, math.floor(vim.o.lines * 0.25))
 end
 
@@ -111,7 +119,8 @@ end
 local jest_adapter = {
 	cmd = "npm run test",
 	file = function()
-		return join({ "--", vim.fn.expand("%"):gsub("\\", "/") })
+		local file_path = vim.fn.expand("%"):gsub("\\", "/")
+		return join({ "--", file_path })
 	end,
 	enabled = file_exists(vim.fn.getcwd() .. "/package.json"),
 	debug = "npm run --node-options --inspect test",
