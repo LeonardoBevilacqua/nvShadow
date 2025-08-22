@@ -54,6 +54,13 @@ return {
 			desc = "Run Nearest (Neotest)",
 		},
 		{
+			keymap.leader .. "tDr",
+			function()
+				require("neotest").run.run({ strategy = "dap" })
+			end,
+			desc = "Run Debug Nearest (Neotest)",
+		},
+		{
 			keymap.leader .. "tl",
 			function()
 				require("neotest").run.run_last()
