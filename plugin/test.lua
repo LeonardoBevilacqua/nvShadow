@@ -3,6 +3,7 @@
 ---@field file fun(): string
 ---@field enabled boolean
 ---@field debug string | nil
+---@field coverage string | (fun(self: Adapter, command: "TermTest" | "TermTestFile"): string) | nil
 
 ---@class TestConfig
 ---@field adapters Adapter[]
@@ -23,10 +24,24 @@ local function is_windows()
 	return vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
 end
 
+---@param origin_table table
+local function toArray(origin_table)
+	local array = {}
+	for _, value in pairs(origin_table) do
+		table.insert(array, value)
+	end
+	return array
+end
+
+local vim_command = {
+	ALL = "TermTest",
+	FILE = "TermTestFile",
+}
+local vim_command_options = { DEBUG = "debug", COVERAGE = "coverage" }
 local base_opts = {
 	nargs = "*",
 	complete = function(arg_lead)
-		local options = { "debug" }
+		local options = toArray(vim_command_options)
 		local matches = {}
 		for _, opt in ipairs(options) do
 			if opt:find("^" .. arg_lead) then
@@ -51,19 +66,24 @@ end
 M.setup = function(config)
 	for _, adapter in ipairs(config.adapters) do
 		if adapter.enabled then
-			vim.api.nvim_create_user_command("TermTest", function(opts)
-				if opts.args == "debug" and adapter.debug ~= nil then
+			vim.api.nvim_create_user_command(vim_command.ALL, function(opts)
+				if opts.args == vim_command_options.DEBUG and adapter.debug ~= nil then
 					M.run_term_cmd(adapter.debug)
+					return
+				elseif opts.args == vim_command_options.COVERAGE and adapter.coverage ~= nil then
+					M.run_term_cmd(adapter:coverage(vim_command.ALL))
 					return
 				end
 
 				M.run_term_cmd(adapter.cmd)
 			end, base_opts)
 
-			vim.api.nvim_create_user_command("TermTestFile", function(opts)
+			vim.api.nvim_create_user_command(vim_command.FILE, function(opts)
 				local cmd = ""
-				if opts.args == "debug" and adapter.debug ~= nil then
+				if opts.args == vim_command_options.DEBUG and adapter.debug ~= nil then
 					cmd = join({ adapter.debug, adapter.file() })
+				elseif opts.args == vim_command_options.COVERAGE and adapter.coverage ~= nil then
+					cmd = adapter:coverage(vim_command.FILE)
 				else
 					cmd = join({ adapter.cmd, adapter.file() })
 				end
@@ -119,11 +139,20 @@ end
 local jest_adapter = {
 	cmd = "npm run test",
 	file = function()
+		-- TODO move to function
 		local file_path = vim.fn.expand("%"):gsub("\\", "/")
 		return join({ "--", file_path })
 	end,
 	enabled = file_exists(vim.fn.getcwd() .. "/package.json"),
 	debug = "npm run --node-options --inspect test",
+	coverage = function(self, command)
+		local cmd = "npm run test:coverage"
+		if command == "TermTest" then
+			return cmd
+		end
+		-- TODO move to function the expand
+		return cmd .. (" %s %s"):format(self.file(), "--collectCoverageFrom=" .. vim.fn.expand("%:p:h"))
+	end,
 }
 ---@type Adapter
 local dotnet_adapter = {
