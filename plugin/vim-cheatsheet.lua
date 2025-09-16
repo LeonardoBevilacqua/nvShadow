@@ -40,6 +40,10 @@ local function show_vim_cheatsheet()
 			title = "Search and replace selection",
 			description = "Use `/` to search the text to be replaced, and use `:%s//new-string` to replace the last searched pattern",
 		},
+		{
+			title = "Terminal command history",
+			description = "In terminal, enter command mode (`<Esc>`) and press `/`, type the command to search and press enter. Use `n` and `N` to navigate",
+		},
 	}
 	for _, tip in ipairs(tips) do
 		table.insert(lines, format_tip(tip))
