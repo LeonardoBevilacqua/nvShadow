@@ -171,6 +171,15 @@ return {
 					end,
 					console = "integratedTerminal",
 				},
+				{
+					name = "Attach to Node Process",
+					type = "node2",
+					request = "attach",
+					port = 9229,
+					restart = true,
+					protocol = "inspector",
+					stopOnEntry = false,
+				},
 			}
 		end
 	end,
