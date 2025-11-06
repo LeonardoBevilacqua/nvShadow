@@ -14,6 +14,7 @@ local ensure_installed = {
 	"angularls",
 	"omnisharp",
 	"jdtls",
+	"sonarlint-language-server",
 }
 local servers = {
 	lua_ls = {

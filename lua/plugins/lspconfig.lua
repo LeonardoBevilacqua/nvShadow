@@ -7,6 +7,7 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		{ "j-hui/fidget.nvim", opts = {} },
 		"saghen/blink.cmp",
+		"https://gitlab.com/schrieveslaach/sonarlint.nvim",
 	},
 	config = function()
 		vim.diagnostic.config({
@@ -61,5 +62,60 @@ return {
 			server.capabilities = vim.tbl_deep_extend("force", capabilities, server.capabilities or {})
 			vim.lsp.config(server_name, server)
 		end
+
+		require("sonarlint").setup({
+			server = {
+				cmd = {
+					"sonarlint-language-server",
+					-- Ensure that sonarlint-language-server uses stdio channel
+					"-stdio",
+					"-analyzers",
+					-- paths to the analyzers you need, using those for python and java in this example
+					vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
+					vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarcfamily.jar"),
+					vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjava.jar"),
+					vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjs.jar"),
+				},
+				settings = {
+					sonarlint = {
+						connectedMode = {
+							connections = {
+								sonarqube = {
+									{
+										connectionId = "ID",
+										serverUrl = vim.fn.getenv("SONAR_SERVER_URL"),
+										disableNotifications = false,
+									},
+								},
+							},
+						},
+					},
+				},
+				before_init = function(params, config)
+					local project_root_and_ids = {
+						["folder-path"] = "folder",
+					}
+
+					config.settings.sonarlint.connectedMode.project = {
+						connectionId = "ID",
+						projectKey = project_root_and_ids[params.rootPath],
+					}
+				end,
+				-- settings = {
+				-- 	sonarlint = {
+				-- 		rules = {
+				-- 			["typescript:S101"] = { level = "on", parameters = { format = "^[A-Z][a-zA-Z0-9]*$" } },
+				-- 			["typescript:S103"] = { level = "on", parameters = { maximumLineLength = 18 } },
+				-- 			["typescript:S106"] = { level = "on" },
+				-- 			["typescript:S107"] = { level = "on", parameters = { maximumFunctionParameters = 7 } },
+				-- 		},
+				-- 	},
+				-- },
+			},
+			filetypes = {
+				"javascript",
+				"typescript",
+			},
+		})
 	end,
 }
