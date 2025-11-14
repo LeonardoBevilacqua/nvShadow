@@ -52,9 +52,9 @@ local function show_vim_cheatsheet()
 	if not vim.api.nvim_win_is_valid(state.floating.win) then
 		state.floating = require("config.floating_window").create_floating_window({ buf = -1 })
 		api.nvim_buf_set_lines(state.floating.buf, 0, -1, false, lines)
-		api.nvim_buf_set_option(state.floating.buf, "modifiable", false)
-		api.nvim_buf_set_option(state.floating.buf, "readonly", true)
-		api.nvim_buf_set_option(state.floating.buf, "filetype", "markdown")
+		api.nvim_set_option_value("modifiable", false, { buf = state.floating.buf })
+		api.nvim_set_option_value("readonly", true, { buf = state.floating.buf })
+		api.nvim_set_option_value("filetype", "markdown", { buf = state.floating.buf })
 	else
 		vim.api.nvim_win_hide(state.floating.win)
 	end
