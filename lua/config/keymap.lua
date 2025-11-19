@@ -95,6 +95,7 @@ map(normalMode, getCtrlCommand("n"), ":Explore" .. enter, { desc = "Open Explore
 map(normalMode, getAltCommand("h"), getCommand("Horterminal"), { desc = "Open horizontal terminal" })
 map(normalMode, getAltCommand("v"), getCommand("Vertterminal"), { desc = "Open vertical terminal" })
 map({ normalMode, terminalMode }, getAltCommand("t"), getCommand("Floatterminal"), { desc = "Open floating terminal" })
+map(normalMode, leader .. "lg", getCommand("LazyGit"), { desc = "LazyGit" })
 
 -- global lsp mappings
 map(normalMode, leader .. "ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
