@@ -35,13 +35,6 @@ local vtsls = {
 	end,
 }
 local html = { filetypes = { "html", "templ", "htmlangular" } }
-local tailwindcss = {
-	root_dir = function(fname)
-		local root_pattern =
-			require("lspconfig").util.root_pattern("tailwind.config.cjs", "tailwind.config.js", "postcss.config.js")
-		return root_pattern(fname)
-	end,
-}
 local eslint = {
 	on_init = function(client)
 		client.config.settings.workingDirectory = { directory = client.config.root_dir }
@@ -88,13 +81,14 @@ local language_configs = {
 	pylsp = { config = {} },
 	html = { config = html },
 	cssls = { config = {} },
-	tailwindcss = { config = tailwindcss },
+	tailwindcss = { config = {} },
 	eslint = { config = eslint },
 	angularls = { config = angularls },
 	omnisharp = { config = omnisharp },
 	jdtls = { config = {} },
 	sonarlint = { config = {}, server_name = "sonarlint-language-server", skip = true },
 	stylua = { config = {} },
+	svelte = { config = {} },
 }
 
 ---@type string[]

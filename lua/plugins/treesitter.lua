@@ -22,6 +22,7 @@ return {
 				"tsx",
 				"angular",
 				"python",
+				"svelte",
 			},
 			auto_install = true,
 			highlight = {
