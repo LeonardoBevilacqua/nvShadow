@@ -21,9 +21,6 @@ local vtsls = {
 			},
 		},
 	},
-	reuse_client = function()
-		return true
-	end,
 	on_attach = function()
 		local keymap = require("config.keymap")
 		keymap.map(

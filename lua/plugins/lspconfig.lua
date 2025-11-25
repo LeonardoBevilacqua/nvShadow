@@ -47,6 +47,9 @@ local function setup_lsp_servers()
 	require("mason-lspconfig").setup({
 		ensure_installed = {},
 		automatic_installation = false,
+		automatic_enable = {
+			exclude = { "jdtls" },
+		},
 	})
 	for server_name, language_config in pairs(languages.language_configs) do
 		local server = language_config.config or {}
