@@ -4,6 +4,25 @@ local function is_windows()
 	return vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
 end
 
+local bundle = {
+	vim.fn.glob(
+		vim.fn.stdpath("data")
+			.. package.config:sub(1, 1)
+			.. "mason"
+			.. package.config:sub(1, 1)
+			.. "packages"
+			.. package.config:sub(1, 1)
+			.. "java-debug-adapter"
+			.. package.config:sub(1, 1)
+			.. "extension"
+			.. package.config:sub(1, 1)
+			.. "server"
+			.. package.config:sub(1, 1)
+			.. "com.microsoft.java.debug.plugin-*.jar",
+		true
+	),
+}
+
 function M.setup()
 	local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 	local workspace_dir = vim.fn.stdpath("data")
@@ -84,7 +103,7 @@ function M.setup()
 		--
 		-- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
 		init_options = {
-			bundles = {},
+			bundles = bundle,
 		},
 	}
 	-- This starts a new client & server,

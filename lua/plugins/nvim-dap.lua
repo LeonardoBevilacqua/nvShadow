@@ -88,6 +88,7 @@ return {
 				"python",
 				"node2",
 				"js",
+				"java",
 			},
 		})
 
