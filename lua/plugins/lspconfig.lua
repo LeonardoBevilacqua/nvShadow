@@ -59,6 +59,15 @@ local function setup_lsp_servers()
 	end
 end
 
+local function configure_jdtls()
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = "java",
+		callback = function()
+			require("config.jdtls_setup").setup()
+		end,
+	})
+end
+
 return {
 	"neovim/nvim-lspconfig",
 	lazy = false,
@@ -69,10 +78,15 @@ return {
 		{ "j-hui/fidget.nvim", opts = {} },
 		"saghen/blink.cmp",
 		"https://gitlab.com/schrieveslaach/sonarlint.nvim",
+		{
+			"mfussenegger/nvim-jdtls",
+			dependencies = { "mfussenegger/nvim-dap" },
+		},
 	},
 	config = function()
 		configure_vim_diagnostic()
 		setup_lsp_servers()
+		configure_jdtls()
 		require("sonarlint").setup(require("config.sonarlint"))
 	end,
 }
