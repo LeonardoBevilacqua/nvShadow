@@ -42,8 +42,7 @@ end
 local function setup_lsp_servers()
 	local languages = require("config.languages")
 
-	require("mason-tool-installer").setup({ ensure_installed = languages.ensure_installed })
-
+	require("mason").setup()
 	require("mason-lspconfig").setup({
 		ensure_installed = {},
 		automatic_installation = false,
@@ -51,6 +50,8 @@ local function setup_lsp_servers()
 			exclude = { "jdtls" },
 		},
 	})
+	require("mason-tool-installer").setup({ ensure_installed = languages.ensure_installed })
+
 	for server_name, language_config in pairs(languages.language_configs) do
 		local server = language_config.config or {}
 		server.capabilities = vim.tbl_deep_extend("force", get_capabilities(), server.capabilities or {})
