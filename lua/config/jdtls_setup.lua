@@ -45,6 +45,16 @@ function M.setup()
 			"-Declipse.product=org.eclipse.jdt.ls.core.product",
 			"-Dlog.protocol=true",
 			"-Dlog.level=ALL",
+			"-javaagent:"
+				.. vim.fn.stdpath("data")
+				.. package.config:sub(1, 1)
+				.. "mason"
+				.. package.config:sub(1, 1)
+				.. "packages"
+				.. package.config:sub(1, 1)
+				.. "jdtls"
+				.. package.config:sub(1, 1)
+				.. "lombok.jar",
 			"-Xmx1g",
 			"--add-modules=ALL-SYSTEM",
 			"--add-opens",
