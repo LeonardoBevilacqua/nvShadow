@@ -11,6 +11,7 @@ return {
 		"antoinemadec/FixCursorHold.nvim",
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-neotest/neotest-jest",
+		"rcasia/neotest-java",
 	},
 	config = function()
 		require("neotest").setup({
@@ -28,6 +29,7 @@ return {
 						return vim.fn.getcwd()
 					end,
 				}),
+				require("neotest-java")({}),
 			},
 		})
 	end,
