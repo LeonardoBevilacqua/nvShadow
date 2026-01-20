@@ -102,7 +102,15 @@ function M.setup()
 		-- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
 		-- for a list of options
 		settings = {
-			java = {},
+			java = {
+                format = {
+                    enabled = true,
+                    settings = {
+                        url = vim.fn.getcwd() .. package.config:sub(1, 1) .. "checkstyle.xml",
+                    },
+                    comments = { enabled = true },
+                },
+            },
 		},
 
 		-- Language server `initializationOptions`
@@ -115,6 +123,20 @@ function M.setup()
 		init_options = {
 			bundles = bundle,
 		},
+        on_attach = function ()
+            vim.opt.shiftwidth = 2
+            vim.opt.tabstop = 2
+            vim.opt.softtabstop = 2
+            local keymap = require("config.keymap")
+            keymap.map(keymap.normalMode, keymap.leader .. "fM", function()
+                vim.lsp.buf.code_action({
+                    filter = function(action)
+                        return action.kind == "source.organizeImports"
+                    end,
+                    apply = true,
+                })
+            end, { desc = "general format imports" })
+        end
 	}
 	-- This starts a new client & server,
 	-- or attaches to an existing client & server depending on the `root_dir`.
