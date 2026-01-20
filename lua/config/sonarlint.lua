@@ -32,9 +32,15 @@ local server = {
 	cmd = cmd,
 	settings = settings,
 	before_init = function(params, config)
-		local project_root_and_ids = {
-			["/home/leonardo/Lenovo/LDM/lcp-aui-ldm-portal-app"] = "lcp-aui-ldm-portal-app",
-		}
+		local project_root_and_ids = {}
+		local root_and_ids = vim.fn.getenv("PROJECT_ROOT_AND_IDS")
+
+		if root_and_ids ~= vim.NIL then
+			for _, root_id in pairs(vim.split(root_and_ids, ";")) do
+				local root_id_table = vim.split(root_id, "#")
+				project_root_and_ids[root_id_table[1]] = root_id_table[2]
+			end
+		end
 
 		config.settings.sonarlint.connectedMode.project = {
 			connectionId = "DMS_FE",
@@ -45,6 +51,7 @@ local server = {
 local filetypes = {
 	"javascript",
 	"typescript",
+	"java",
 }
 
 return { server = server, filetypes = filetypes }
