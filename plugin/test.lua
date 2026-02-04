@@ -160,6 +160,15 @@ local dotnet_adapter = {
 	file = function()
 		return join({ "--filter", get_current_cs_file() })
 	end,
+	coverage = function(_, command)
+		local coverage_cmd = '--collect:"XPlat Code Coverage;Format=lcov"'
+		local cmd = "dotnet test"
+		if command == "TermTest" then
+			return join({ cmd, coverage_cmd })
+		end
+
+		return join({ cmd, "--filter", get_current_cs_file(), coverage_cmd })
+	end,
 	enabled = file_exists(vim.fn.getcwd() .. "/*.sln"),
 }
 ---@type Adapter[]
