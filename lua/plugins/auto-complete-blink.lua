@@ -5,7 +5,12 @@ return {
 			"L3MON4D3/LuaSnip",
 			version = "v2.*",
 			dependencies = "rafamadriz/friendly-snippets",
-			opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+			opts = {
+				history = true,
+				updateevents = "TextChanged,TextChangedI",
+				region_check_events = "InsertEnter",
+				delete_check_events = "TextChanged,InsertLeave",
+			},
 			config = function(_, opts)
 				require("luasnip").config.set_config(opts)
 				require("luasnip.loaders.from_vscode").lazy_load()
