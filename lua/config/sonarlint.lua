@@ -1,12 +1,58 @@
-local cmd = {
-	"sonarlint-language-server",
-	"-stdio",
-	"-analyzers",
-	vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
-	vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarcfamily.jar"),
-	vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjava.jar"),
-	vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjs.jar"),
+local analyzer_base = vim.fn.expand("$MASON/share/sonarlint-analyzers/")
+local ft_to_analyzer = {
+	java = "sonarjava.jar",
+	javascript = "sonarjs.jar",
+	typescript = "sonarjs.jar",
+	python = "sonarpython.jar",
+	c = "sonarcfamily.jar",
+	cpp = "sonarcfamily.jar",
 }
+
+local function detect_project_filetypes()
+	local root = vim.fn.getcwd()
+	local filetypes = {}
+	local markers = {
+		java = { "pom.xml", "build.gradle", "build.gradle.kts", "mvnw", "gradlew" },
+		javascript = { "package.json" },
+		typescript = { "tsconfig.json" },
+		python = { "requirements.txt", "pyproject.toml", "setup.py", "Pipfile" },
+		c = { "CMakeLists.txt", "Makefile", "compile_commands.json" },
+		cpp = { "CMakeLists.txt", "Makefile", "compile_commands.json" },
+		rust = { "Cargo.toml" },
+		cs = { "*.csproj", "*.sln" },
+	}
+	for ft, files in pairs(markers) do
+		for _, file in ipairs(files) do
+			if file:find("*") then
+				if #vim.fn.glob(root .. "/" .. file, false, true) > 0 then
+					filetypes[ft] = true
+					break
+				end
+			elseif (vim.uv or vim.loop).fs_stat(root .. "/" .. file) then
+				filetypes[ft] = true
+				break
+			end
+		end
+	end
+	return vim.tbl_keys(filetypes)
+end
+
+local function build_analyzer_args()
+	local project_fts = detect_project_filetypes()
+	local seen = {}
+	local args = {}
+	for _, ft in ipairs(project_fts) do
+		local jar = ft_to_analyzer[ft]
+		if jar and not seen[jar] then
+			seen[jar] = true
+			table.insert(args, analyzer_base .. jar)
+		end
+	end
+	return args
+end
+
+local analyzers = build_analyzer_args()
+local cmd = vim.list_extend({ "sonarlint-language-server", "-stdio", "-analyzers" }, analyzers)
 local settings = {
 	sonarlint = {
 		connectedMode = {

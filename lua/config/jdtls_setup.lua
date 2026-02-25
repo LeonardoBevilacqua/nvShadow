@@ -44,7 +44,7 @@ function M.setup()
 			"-Dosgi.bundles.defaultStartLevel=4",
 			"-Declipse.product=org.eclipse.jdt.ls.core.product",
 			"-Dlog.protocol=true",
-			"-Dlog.level=ALL",
+			"-Dlog.level=WARN",
 			"-javaagent:"
 				.. vim.fn.stdpath("data")
 				.. package.config:sub(1, 1)

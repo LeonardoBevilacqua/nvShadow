@@ -10,7 +10,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 	desc = "Hide line numbers when terminal is open",
 	group = vim.api.nvim_create_augroup("term-open", { clear = true }),
 	callback = function()
-		vim.opt.number = false
+		vim.opt_local.number = false
 	end,
 })
 
@@ -19,32 +19,67 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)
 		local keymap = require("config.keymap")
 
-		keymap.map(keymap.normalMode, "gD", vim.lsp.buf.declaration, { desc = "LSP Go to declaration" })
-		keymap.map(keymap.normalMode, "gd", vim.lsp.buf.definition, { desc = "LSP Go to definition" })
-		keymap.map(keymap.normalMode, "gi", vim.lsp.buf.implementation, { desc = "LSP Go to implementation" })
-		keymap.map(keymap.normalMode, "<leader>sh", vim.lsp.buf.signature_help, { desc = "LSP Show signature help" })
 		keymap.map(
 			keymap.normalMode,
-			"<leader>wa",
+			"gD",
+			vim.lsp.buf.declaration,
+			{ desc = "LSP Go to declaration", buffer = event.buf }
+		)
+		keymap.map(
+			keymap.normalMode,
+			"gd",
+			vim.lsp.buf.definition,
+			{ desc = "LSP Go to definition", buffer = event.buf }
+		)
+		keymap.map(
+			keymap.normalMode,
+			"gi",
+			vim.lsp.buf.implementation,
+			{ desc = "LSP Go to implementation", buffer = event.buf }
+		)
+		keymap.map(
+			keymap.normalMode,
+			"<leader>sh",
+			vim.lsp.buf.signature_help,
+			{ desc = "LSP Show signature help", buffer = event.buf }
+		)
+		keymap.map(
+			keymap.normalMode,
+			"<leader>lwa",
 			vim.lsp.buf.add_workspace_folder,
-			{ desc = "LSP Add workspace folder" }
+			{ desc = "LSP Add workspace folder", buffer = event.buf }
 		)
 		keymap.map(
 			keymap.normalMode,
-			"<leader>wr",
+			"<leader>lwr",
 			vim.lsp.buf.remove_workspace_folder,
-			{ desc = "LSP Remove workspace folder" }
+			{ desc = "LSP Remove workspace folder", buffer = event.buf }
 		)
 
-		keymap.map(keymap.normalMode, "<leader>wl", function()
+		keymap.map(keymap.normalMode, "<leader>lwl", function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-		end, { desc = "LSP List workspace folders" })
+		end, { desc = "LSP List workspace folders", buffer = event.buf })
 
-		keymap.map(keymap.normalMode, "<leader>D", vim.lsp.buf.type_definition, { desc = "LSP Go to type definition" })
-		keymap.map(keymap.normalMode, "<leader>ra", vim.lsp.buf.rename, { desc = "LSP rename" })
+		keymap.map(
+			keymap.normalMode,
+			"<leader>D",
+			vim.lsp.buf.type_definition,
+			{ desc = "LSP Go to type definition", buffer = event.buf }
+		)
+		keymap.map(keymap.normalMode, "<leader>ra", vim.lsp.buf.rename, { desc = "LSP rename", buffer = event.buf })
 
-		keymap.map({ keymap.normalMode, "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code action" })
-		keymap.map(keymap.normalMode, "gr", vim.lsp.buf.references, { desc = "LSP Show references" })
+		keymap.map(
+			{ keymap.normalMode, "v" },
+			"<leader>ca",
+			vim.lsp.buf.code_action,
+			{ desc = "LSP Code action", buffer = event.buf }
+		)
+		keymap.map(
+			keymap.normalMode,
+			"gr",
+			vim.lsp.buf.references,
+			{ desc = "LSP Show references", buffer = event.buf }
+		)
 
 		local function client_supports_method(client, method, bufnr)
 			if vim.fn.has("nvim-0.11") == 1 then
@@ -93,22 +128,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
 			keymap.map(keymap.normalMode, keymap.leader .. "th", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-			end, { desc = "Toggle Inlay hints" })
+			end, { desc = "Toggle Inlay hints", buffer = event.buf })
 		end
 	end,
 })
-
---vim.api.nvim_create_autocmd("BufEnter", {
---desc = "Jest commands",
---group = vim.api.nvim_create_augroup("jester-command", { clear = true }),
---pattern = { "javascript", "*.spec.ts" },
---callback = function()
---local keymap = require("config.keymap")
---local jester = require("jester")
---
---keymap.map(keymap.normalMode, keymap.leader .. "tc", jester.run, { desc = "JEST test current" })
---keymap.map(keymap.normalMode, keymap.leader .. "tf", jester.run_file, { desc = "JEST test file" })
---keymap.map(keymap.normalMode, keymap.leader .. "Tc", jester.debug, { desc = "JEST test debug current" })
---keymap.map(keymap.normalMode, keymap.leader .. "Tc", jester.debug_file, { desc = "JEST test debug file" })
---end,
---})
