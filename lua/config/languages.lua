@@ -84,7 +84,6 @@ local language_configs = {
 	omnisharp = { config = omnisharp },
 	jdtls = { config = {} },
 	sonarlint = { config = {}, server_name = "sonarlint-language-server", skip = true },
-	stylua = { config = {} },
 	svelte = { config = {} },
 	rust_analyzer = { config = {} },
 }

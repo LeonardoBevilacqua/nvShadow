@@ -10,7 +10,7 @@ return {
 					signcolumn = "yes:2",
 				},
 				view_options = {
-					show_hiiden = true,
+					show_hidden = true,
 				},
 			})
 			local keymap = require("config.keymap")

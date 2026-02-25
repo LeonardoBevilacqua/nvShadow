@@ -21,13 +21,16 @@ vim.opt.splitright = true
 vim.opt.termguicolors = true
 vim.opt.timeoutlen = 1000
 vim.opt.undofile = true
-vim.opt.updatetime = 100
+vim.opt.swapfile = false
+vim.opt.updatetime = 300
 vim.opt.writebackup = false
 vim.opt.cursorline = true
-vim.opt.wrap = false
 vim.opt.virtualedit = "block"
 vim.opt.inccommand = "split"
 vim.opt.winborder = "rounded"
+vim.opt.completeopt = "menu,menuone,noselect"
+vim.opt.shortmess:append("c")
+vim.g.have_nerd_font = true
 
 -- search
 vim.opt.ignorecase = true
@@ -39,4 +42,4 @@ vim.opt.spelllang = "en,pt_br"
 -- shell
 vim.opt.shellcmdflag = "-c"
 vim.opt.shellslash = true
-vim.opt.shellquote = '\"'
+vim.opt.shellquote = '"'
