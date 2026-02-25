@@ -103,12 +103,35 @@ function M.setup()
 		-- for a list of options
 		settings = {
 			java = {
+                configuration = {
+                    updateBuildConfiguration = "automatic",
+                },
+                completion = {
+                    importOrder = {
+                        "#",
+                        "java",
+                        "javax",
+                        "com.lenovo",
+                    },
+                },
                 format = {
                     enabled = true,
                     settings = {
-                        url = vim.fn.getcwd() .. package.config:sub(1, 1) .. "checkstyle.xml",
+                        url = vim.fn.stdpath("config")
+                            .. package.config:sub(1, 1)
+                            .. "formatter"
+                            .. package.config:sub(1, 1)
+                            .. "eclipse-formatter.xml",
+                        profile = "Checkstyle",
                     },
                     comments = { enabled = true },
+                },
+                sources = {
+                    organizeImports = {
+                        staticStarThreshold = 999,
+                        starThreshold = 999,
+                        staticImportsOrder = "before"
+                    },
                 },
             },
 		},
@@ -145,9 +168,10 @@ function M.setup()
 	-- configure key binds
 	local keymap = require("config.keymap")
 	-- Normal mode
-	keymap.map(keymap.normalMode, keymap.leader .. "fM", function()
-		require("jdtls").organize_imports()
-	end, { desc = "general format imports" })
+    -- Check if version from line 147 is better or the same, if same, remove the other
+	-- keymap.map(keymap.normalMode, keymap.leader .. "fM", function()
+	-- 	require("jdtls").organize_imports()
+	-- end, { desc = "general format imports" })
 
 	keymap.map(keymap.normalMode, keymap.leader .. "crv", function()
 		require("jdtls").extract_variable()
