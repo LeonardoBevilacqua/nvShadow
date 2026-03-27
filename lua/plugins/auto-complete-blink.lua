@@ -15,6 +15,7 @@ return {
 				require("luasnip").config.set_config(opts)
 				require("luasnip.loaders.from_vscode").lazy_load()
 			end,
+			build = "make install_jsregexp",
 		},
 		version = "*",
 		config = function()
