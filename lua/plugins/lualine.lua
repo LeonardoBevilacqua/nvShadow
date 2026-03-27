@@ -15,14 +15,19 @@ return {
 				lualine_z = { "location", "selectioncount" },
 			},
 			tabline = {
-				lualine_a = { { "buffers", filetype_names = {
-					oil = "Explore",
-				} } },
-				lualine_b = {},
-				lualine_c = {},
-				lualine_x = {},
-				lualine_y = {},
-				lualine_z = { "tabs" },
+				lualine_a = {
+					{
+						"buffers",
+						filetype_names = { oil = "Explore" },
+						max_length = vim.o.columns * 10 / 12,
+					},
+				},
+				lualine_z = {
+					{
+						"tabs",
+						max_length = vim.o.columns * 2 / 12,
+					},
+				},
 			},
 		})
 	end,
