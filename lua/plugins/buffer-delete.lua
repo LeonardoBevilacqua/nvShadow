@@ -8,5 +8,10 @@ return {
 			keymap.getCommand("BufDel"),
 			desc = "Close buffer",
 		},
+		{
+			keymap.leader .. "X",
+			keymap.getCommand("BufDelOthers"),
+			desc = "Close other buffers",
+		},
 	},
 }

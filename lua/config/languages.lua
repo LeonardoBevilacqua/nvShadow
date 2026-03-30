@@ -12,12 +12,12 @@ local vtsls = {
 	settings = {
 		typescript = {
 			tsserver = {
-				maxTsServerMemory = 8192, -- Example: 8GB (in MB)
+				maxTsServerMemory = 4096, -- Example: 4GB (in MB)
 			},
 		},
 		javascript = {
 			tsserver = {
-				maxTsServerMemory = 8192, -- Example: 8GB (in MB)
+				maxTsServerMemory = 4096, -- Example: 4GB (in MB)
 			},
 		},
 	},
@@ -29,6 +29,9 @@ local vtsls = {
 			keymap.getCommand("VtsExec organize_imports"),
 			{ desc = "general format imports" }
 		)
+		vim.opt.shiftwidth = 2
+		vim.opt.tabstop = 2
+		vim.opt.softtabstop = 2
 	end,
 }
 local html = { filetypes = { "html", "templ", "htmlangular" } }
