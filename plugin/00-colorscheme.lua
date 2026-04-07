@@ -1,0 +1,21 @@
+local keymap = require("config.keymap")
+vim.pack.add({ "https://github.com/olimorris/onedarkpro.nvim" })
+
+local onedarkpro = require("onedarkpro")
+onedarkpro.setup({
+    options = {
+        transparency = true,
+    },
+})
+
+vim.cmd("colorscheme onedark")
+
+keymap.map(keymap.normalMode, keymap.leader .. "tt", function()
+    local onedarkpro_config = require("onedarkpro.config")
+    onedarkpro.setup({
+        options = {
+            transparency = not onedarkpro_config.options.transparency,
+        },
+    })
+    vim.cmd("colorscheme onedark")
+end, { desc = "Toggle background transparency" })

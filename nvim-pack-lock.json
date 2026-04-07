@@ -1,0 +1,8 @@
+{
+  "plugins": {
+    "onedarkpro.nvim": {
+      "rev": "dab7b623d48b50330c43234958c0ba2de9b501d5",
+      "src": "https://github.com/olimorris/onedarkpro.nvim"
+    }
+  }
+}
