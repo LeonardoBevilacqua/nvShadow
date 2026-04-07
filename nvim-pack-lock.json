@@ -8,6 +8,10 @@
       "rev": "7fdae2443a0e2910015ca39ad74b50524ee682d3",
       "src": "https://github.com/echasnovski/mini.icons"
     },
+    "nvim-bufdel": {
+      "rev": "523d58e94e7212fff3e05c247b962dc8f93bcfde",
+      "src": "https://github.com/ojroques/nvim-bufdel"
+    },
     "nvim-web-devicons": {
       "rev": "95b7a002d5dba1a42eb58f5fac5c565a485eefd0",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
