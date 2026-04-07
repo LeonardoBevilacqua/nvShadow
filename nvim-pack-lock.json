@@ -1,5 +1,17 @@
 {
   "plugins": {
+    "mini.icons": {
+      "rev": "7fdae2443a0e2910015ca39ad74b50524ee682d3",
+      "src": "https://github.com/echasnovski/mini.icons"
+    },
+    "oil-git-status.nvim": {
+      "rev": "a3e2ccb00cb8822115e28a9a1791eda051d940c9",
+      "src": "https://github.com/refractalize/oil-git-status.nvim"
+    },
+    "oil.nvim": {
+      "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
+      "src": "https://github.com/stevearc/oil.nvim"
+    },
     "onedarkpro.nvim": {
       "rev": "dab7b623d48b50330c43234958c0ba2de9b501d5",
       "src": "https://github.com/olimorris/onedarkpro.nvim"
