@@ -34,6 +34,10 @@
       "rev": "8811f3f3f4dc09d740c67e9ce399e7a541e2e5b2",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
+    "markdown-preview.nvim": {
+      "rev": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee",
+      "src": "https://github.com/iamcco/markdown-preview.nvim"
+    },
     "mason-conform.nvim": {
       "rev": "48da2ebd5efbaf8a99566eadc3ece82d523f03c5",
       "src": "https://github.com/zapling/mason-conform.nvim"
