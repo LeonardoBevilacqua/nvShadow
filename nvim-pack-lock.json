@@ -50,6 +50,10 @@
       "rev": "28b87c46fe813c8859d607f4a31b7b5fbdbd75d3",
       "src": "https://github.com/joeveiga/ng.nvim"
     },
+    "nvim-autopairs": {
+      "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
+      "src": "https://github.com/windwp/nvim-autopairs"
+    },
     "nvim-bufdel": {
       "rev": "523d58e94e7212fff3e05c247b962dc8f93bcfde",
       "src": "https://github.com/ojroques/nvim-bufdel"
