@@ -66,6 +66,10 @@
       "rev": "523d58e94e7212fff3e05c247b962dc8f93bcfde",
       "src": "https://github.com/ojroques/nvim-bufdel"
     },
+    "nvim-coverage": {
+      "rev": "a939e425e363319d952a6c35fb3f38b34041ded2",
+      "src": "https://github.com/andythigpen/nvim-coverage"
+    },
     "nvim-dap": {
       "rev": "45a69eba683a2c448dd9ecfc4de89511f0646b5f",
       "src": "https://github.com/mfussenegger/nvim-dap"
