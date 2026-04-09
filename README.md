@@ -1,11 +1,17 @@
-# [WIP] NeoVim Configuration
+# NeoVim Configuration
 
-This repository holds the Configuration code for my NeoVim configuration for Full stack web development.
+This repository holds the Configuration code for my NeoVim configuration, if my personal preference and plugins.
+
+## Requirement
+
+Version >= 0.12.0
 
 ## Checklist
 
-- [ ] use native lsp config in order to remove some plugins.
-- [ ] configure jdtls.
+- [ ] use native LSP config in order to remove some plugins.
+- [ ] consider removing mason and install LSPs and linters with nix
+- [ ] consider moving some plugins to ftplugin
+- [ ] create utils file for function is_windows
 
 ## Plugins to install
 
