@@ -46,6 +46,10 @@
       "rev": "7fdae2443a0e2910015ca39ad74b50524ee682d3",
       "src": "https://github.com/echasnovski/mini.icons"
     },
+    "ng.nvim": {
+      "rev": "28b87c46fe813c8859d607f4a31b7b5fbdbd75d3",
+      "src": "https://github.com/joeveiga/ng.nvim"
+    },
     "nvim-bufdel": {
       "rev": "523d58e94e7212fff3e05c247b962dc8f93bcfde",
       "src": "https://github.com/ojroques/nvim-bufdel"
@@ -97,6 +101,10 @@
     "telescope.nvim": {
       "rev": "7ef4d6dccb78ee71e552bbd866176762ad328afa",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "tree-sitter-angular": {
+      "rev": "f0d0685701b70883fa2dfe94ee7dc27965cab841",
+      "src": "https://github.com/dlvandenberg/tree-sitter-angular"
     },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
