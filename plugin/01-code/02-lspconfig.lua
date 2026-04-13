@@ -1,3 +1,14 @@
+vim.pack.add({
+	"https://github.com/williamboman/mason.nvim",
+	"https://github.com/williamboman/mason-lspconfig.nvim",
+	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
+	"https://github.com/j-hui/fidget.nvim",
+	"https://gitlab.com/schrieveslaach/sonarlint.nvim",
+	"https://github.com/mfussenegger/nvim-dap",
+	"https://github.com/mfussenegger/nvim-jdtls",
+	"https://github.com/neovim/nvim-lspconfig",
+})
+
 local function get_capabilities()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, false))
@@ -68,25 +79,7 @@ local function configure_jdtls()
 	})
 end
 
-return {
-	"neovim/nvim-lspconfig",
-	lazy = false,
-	dependencies = {
-		{ "williamboman/mason.nvim", opts = {} },
-		"williamboman/mason-lspconfig.nvim",
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		{ "j-hui/fidget.nvim", opts = {} },
-		"saghen/blink.cmp",
-		"https://gitlab.com/schrieveslaach/sonarlint.nvim",
-		{
-			"mfussenegger/nvim-jdtls",
-			dependencies = { "mfussenegger/nvim-dap" },
-		},
-	},
-	config = function()
-		configure_vim_diagnostic()
-		setup_lsp_servers()
-		configure_jdtls()
-		require("sonarlint").setup(require("config.sonarlint"))
-	end,
-}
+configure_vim_diagnostic()
+setup_lsp_servers()
+configure_jdtls()
+require("sonarlint").setup(require("config.sonarlint"))

@@ -89,6 +89,7 @@ local language_configs = {
 	sonarlint = { config = {}, server_name = "sonarlint-language-server", skip = true },
 	svelte = { config = {} },
 	rust_analyzer = { config = {} },
+	checkstyle = { config = {}, skip = true },
 }
 
 ---@type string[]
