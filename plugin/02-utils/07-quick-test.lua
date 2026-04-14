@@ -151,6 +151,17 @@ local java_mvn_adapter = {
 
 		return cmd
 	end,
+	debug_cmd = function(self, command)
+		local debug_arg = "-Dmaven.surefire.debug"
+		local cmd = ""
+		if command == "QuickTestAll" then
+			cmd = join({ self.base_cmd, debug_arg })
+		else
+			cmd = join({ self:file_cmd(), debug_arg })
+		end
+
+		return cmd
+	end,
 }
 
 local quick_test = require("quick-test")
