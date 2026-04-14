@@ -85,11 +85,12 @@ local language_configs = {
 	eslint = { config = eslint },
 	angularls = { config = angularls },
 	omnisharp = { config = omnisharp },
-	jdtls = { config = {} },
+	jdtls = { config = {}, skip = true },
 	sonarlint = { config = {}, server_name = "sonarlint-language-server", skip = true },
 	svelte = { config = {} },
 	rust_analyzer = { config = {} },
 	checkstyle = { config = {}, skip = true },
+	java_debug_adapter = { config = {}, server_name = "java-debug-adapter", skip = true },
 }
 
 ---@type string[]
