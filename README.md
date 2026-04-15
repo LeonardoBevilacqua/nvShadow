@@ -12,6 +12,3 @@ Version >= 0.12.0
 - [ ] consider removing mason and install LSPs and linters with nix
 - [ ] consider moving some plugins to ftplugin
 
-## Plugins to install
-
-- [ ] "indent-blankline.nvim"
