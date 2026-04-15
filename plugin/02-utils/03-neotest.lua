@@ -1,13 +1,9 @@
-local function is_windows()
-	return vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
-end
-
 vim.pack.add({
 	"https://github.com/antoinemadec/FixCursorHold.nvim",
 	"https://github.com/nvim-neotest/neotest-jest",
 	"https://github.com/rcasia/neotest-java",
 	"https://github.com/nvim-neotest/neotest",
-}, { load = not is_windows() })
+}, { load = not require("config.utils").is_windows() })
 
 local keymap = require("config.keymap")
 local neotest = require("neotest")

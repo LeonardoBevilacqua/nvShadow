@@ -11,7 +11,6 @@ Version >= 0.12.0
 - [ ] use native LSP config in order to remove some plugins.
 - [ ] consider removing mason and install LSPs and linters with nix
 - [ ] consider moving some plugins to ftplugin
-- [ ] create utils file for function is_windows
 
 ## Plugins to install
 

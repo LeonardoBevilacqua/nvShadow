@@ -1,9 +1,5 @@
 local M = {}
 
-local function is_windows()
-	return vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
-end
-
 local bundle = {
 	vim.fn.glob(
 		vim.fn.stdpath("data")
@@ -30,7 +26,7 @@ function M.setup()
 		.. "jdtls-workspace"
 		.. package.config:sub(1, 1)
 		.. project_name
-	local os_name = is_windows() and "win" or "linux"
+	local os_name = require('config.utils').is_windows() and "win" or "linux"
 	local config = {
 		-- The command that starts the language server
 		-- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
