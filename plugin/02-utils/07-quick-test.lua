@@ -133,7 +133,6 @@ local java_mvn_adapter = {
 	base_cmd = "mvn test -Djacoco.skip=true",
 	file_cmd = function(self)
 		local filename = get_current_java_file()
-		print(vim.inspect(filename))
 		if filename == "" then
 			return ""
 		end

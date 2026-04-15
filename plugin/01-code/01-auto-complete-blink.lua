@@ -1,3 +1,5 @@
+local utils = require("config.utils")
+
 vim.api.nvim_create_autocmd("PackChanged", {
 	callback = function(ev)
 		local name, kind, path = ev.data.spec.name, ev.data.kind, ev.data.path
@@ -10,9 +12,9 @@ vim.api.nvim_create_autocmd("PackChanged", {
 			local opts = { cwd = path, text = true }
 			vim.system({ "make", "install_jsregexp" }, opts, function(obj)
 				if obj.code ~= 0 then
-					print("LuaSnip build failed:\n" .. obj.stderr)
+					utils.error_message("LuaSnip", "build failed:\n" .. obj.stderr)
 				else
-					print("LuaSnip jsregexp installed")
+					utils.success_message("LuaSnip", "jsregexp installed")
 				end
 			end)
 		end

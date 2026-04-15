@@ -1,3 +1,5 @@
+local utils = require("config.utils")
+
 vim.api.nvim_create_autocmd("PackChanged", {
 	callback = function(ev)
 		local name, kind, path = ev.data.spec.name, ev.data.kind, ev.data.path
@@ -10,9 +12,9 @@ vim.api.nvim_create_autocmd("PackChanged", {
 			local opts = { cwd = path .. "/app", text = true }
 			vim.system({ "npm", "install" }, opts, function(obj)
 				if obj.code ~= 0 then
-					print("markdown-preview build failed:\n" .. obj.stderr)
+					utils.error_message("markdown-preview", "build failed:\n" .. obj.stderr)
 				else
-					print("markdown-preview installed")
+					utils.success_message("markdown-preview", "installed")
 				end
 			end)
 		end

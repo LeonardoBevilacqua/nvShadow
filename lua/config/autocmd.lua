@@ -57,7 +57,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		)
 
 		keymap.map(keymap.normalMode, "<leader>lwl", function()
-			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+			require("config.utils").message(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, { desc = "LSP List workspace folders", buffer = event.buf })
 
 		keymap.map(

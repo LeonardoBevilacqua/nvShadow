@@ -43,7 +43,7 @@ local eslint = {
 local angularls = { filetypes = { "htmlangular" } }
 local omnisharp = {
 	on_attach = function(_, bufnr)
-		print("OmniSharp attached to buffer " .. bufnr)
+		require("config.utils").message("OmniSharp attached to buffer " .. bufnr, true)
 	end,
 }
 

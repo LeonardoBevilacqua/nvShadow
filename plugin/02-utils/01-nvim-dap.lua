@@ -109,7 +109,6 @@ local function setup_node_debugger(dap)
 				processId = function()
 					return require("dap.utils").pick_process({
 						filter = function(proc)
-							print(vim.inspect("hey"))
 							local pid = get_pid_by_port_windows(9229)
 							if pid == 0 then
 								return vim.startswith(proc.name, "node")
