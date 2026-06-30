@@ -162,7 +162,40 @@ local java_mvn_adapter = {
 		return cmd
 	end,
 }
+local java_gradle_adapter = {
+	enabled = file_exists(vim.fn.getcwd() .. "/build.gradle") or file_exists(vim.fn.getcwd() .. "/build.gradle.kts"),
+	base_cmd = "./gradlew test",
+	file_cmd = function(self)
+		local filename = get_current_java_file()
+		if filename == "" then
+			return ""
+		end
+
+		return join({ self.base_cmd, "--tests " .. filename })
+	end,
+	coverage_cmd = function(self, command)
+		local cmd = ""
+		if command == "QuickTestAll" then
+			cmd = self.base_cmd
+		else
+			cmd = self:file_cmd()
+		end
+
+		return cmd
+	end,
+	debug_cmd = function(self, command)
+		local debug_arg = "--debug-jvm"
+		local cmd = ""
+		if command == "QuickTestAll" then
+			cmd = join({ self.base_cmd, debug_arg })
+		else
+			cmd = join({ self:file_cmd(), debug_arg })
+		end
+
+		return cmd
+	end,
+}
 
 local quick_test = require("quick-test")
 
-quick_test.setup({ adapters = { jest_adapter, dotnet_adapter, java_mvn_adapter } })
+quick_test.setup({ adapters = { jest_adapter, dotnet_adapter, java_mvn_adapter, java_gradle_adapter } })
