@@ -79,6 +79,20 @@ local function setup_dap_listeners(dap, dapui)
 	dap.listeners.before.event_exited["dapui_config"] = dapui.close
 end
 
+local function setup_java_debugger(dap)
+	dap.configurations.java = {
+		{
+			name = "Attach (5005)",
+			type = "java",
+			request = "attach",
+			hostName = "localhost",
+			port = 5005,
+			protocol = "inspector",
+			stopOnEntry = false,
+		},
+	}
+end
+
 local function setup_node_debugger(dap)
 	-- javascript
 	local node_debug2_path = vim.fn.stdpath("data") .. "/mason/packages/node-debug2-adapter"
@@ -155,6 +169,7 @@ setup_dap_listeners(dap, dapui)
 -- TODO consider moving to ftplugin
 require("dap-python").setup("python3")
 setup_node_debugger(dap)
+setup_java_debugger(dap)
 
 keymap.map(keymap.normalMode, "<F5>", function()
 	require("dap").continue()
