@@ -40,4 +40,15 @@ function M.message(message, history)
 	echo({ { message, "Normal" } }, history)
 end
 
+---@param name string
+---@param default string
+---@return string
+function M.getenv_or_default(name, default)
+	local value = vim.fn.getenv(name)
+	if value == vim.NIL then
+		return default
+	end
+	return value
+end
+
 return M

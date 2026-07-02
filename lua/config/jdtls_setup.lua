@@ -1,3 +1,4 @@
+local utils = require "config.utils"
 local M = {}
 
 local bundle = {
@@ -143,9 +144,9 @@ function M.setup()
 			bundles = bundle,
 		},
         on_attach = function ()
-            vim.opt.shiftwidth = 2
-            vim.opt.tabstop = 2
-            vim.opt.softtabstop = 2
+            vim.opt.shiftwidth = tonumber(utils.getenv_or_default("SHIFT_WIDTH", "2"))
+            vim.opt.tabstop = tonumber(utils.getenv_or_default("TAB_STOP", "2"))
+            vim.opt.softtabstop = tonumber(utils.getenv_or_default("SOFT_TAB_STOP", "2"))
             local keymap = require("config.keymap")
             keymap.map(keymap.normalMode, keymap.leader .. "fM", function()
                 vim.lsp.buf.code_action({
@@ -179,15 +180,15 @@ function M.setup()
 
 	-- Visual mode
 	keymap.map(keymap.visualMode, keymap.leader .. "crv", function()
-		require("jdtls").extract_variable(true)
+		require("jdtls").extract_variable({ visual = true })
 	end, { desc = "Extract variable" })
 
 	keymap.map(keymap.visualMode, keymap.leader .. "crc", function()
-		require("jdtls").extract_constant(true)
+		require("jdtls").extract_constant({ visual = true })
 	end, { desc = "Extract constant" })
 
 	keymap.map(keymap.visualMode, keymap.leader .. "crm", function()
-		require("jdtls").extract_method(true)
+		require("jdtls").extract_method({ visual = true })
 	end, { desc = "Extract method" })
 end
 
