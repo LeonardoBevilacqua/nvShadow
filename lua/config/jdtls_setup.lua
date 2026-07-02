@@ -108,17 +108,20 @@ function M.setup()
                         "#",
                         "java",
                         "javax",
-                        "com.lenovo",
+                        "com.*",
                     },
                 },
                 format = {
                     enabled = true,
                     settings = {
-                        url = vim.fn.stdpath("config")
-                            .. package.config:sub(1, 1)
-                            .. "formatter"
-                            .. package.config:sub(1, 1)
-                            .. "eclipse-formatter.xml",
+                        url = utils.getenv_or_default(
+                            "JDTLS_FORMATTER_URL",
+                            vim.fn.stdpath("config")
+                                .. package.config:sub(1, 1)
+                                .. "formatter"
+                                .. package.config:sub(1, 1)
+                                .. "eclipse-formatter.xml"
+                        ),
                         profile = "Checkstyle",
                     },
                     comments = { enabled = true },
