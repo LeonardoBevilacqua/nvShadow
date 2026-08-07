@@ -1,3 +1,8 @@
+if vim.g.loaded_markdown_preview_ftplugin then
+	return
+end
+vim.g.loaded_markdown_preview_ftplugin = true
+
 local utils = require("config.utils")
 
 vim.api.nvim_create_autocmd("PackChanged", {
