@@ -11,6 +11,7 @@ require("lualine").setup({
         globalstatus = true,
     },
     sections = {
+        lualine_x = { "filetype" },
         lualine_y = { "progress", "searchcount" },
         lualine_z = { "location", "selectioncount" },
     },
