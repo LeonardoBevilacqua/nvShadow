@@ -20,13 +20,17 @@ require("lualine").setup({
             {
                 "buffers",
                 filetype_names = { oil = "Explore" },
-                max_length = vim.o.columns * 10 / 12,
+                max_length = function()
+                    return (vim.o.columns * 10) / 12
+                end,
             },
         },
         lualine_z = {
             {
                 "tabs",
-                max_length = vim.o.columns * 2 / 12,
+                max_length = function()
+                    return (vim.o.columns * 2) / 12
+                end,
             },
         },
     },
