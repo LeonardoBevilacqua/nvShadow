@@ -5,9 +5,11 @@ local state = {
 	},
 }
 
+local window = require("config.floating_window")
+
 local toggle_terminal = function()
 	if not vim.api.nvim_win_is_valid(state.floating.win) then
-		state.floating = require("config.floating_window").create_floating_window({ buf = state.floating.buf })
+		state.floating = window.create_floating_window({ buf = state.floating.buf })
 		if vim.bo[state.floating.buf].buftype ~= "terminal" then
 			vim.cmd.term()
 		end
@@ -31,3 +33,13 @@ end
 vim.api.nvim_create_user_command("Floatterminal", toggle_terminal, {})
 vim.api.nvim_create_user_command("Horterminal", horizontal_terminal, {})
 vim.api.nvim_create_user_command("Vertterminal", vertical_terminal, {})
+
+vim.api.nvim_create_autocmd("WinResized", {
+	desc = "Resize terminal window",
+	group = vim.api.nvim_create_augroup("terminal-resize", { clear = true }),
+	callback = function()
+		if state.floating.win ~= -1 then
+			window.resize_window(state.floating.win, {})
+		end
+	end,
+})
