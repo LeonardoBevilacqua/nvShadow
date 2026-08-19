@@ -10,73 +10,56 @@ local function join(values, separator)
 	separator = separator or " "
 	return table.concat(values, separator)
 end
----@return string
-local function get_current_cs_file()
-	local ts = vim.treesitter
-	local parser = ts.get_parser(0, "c_sharp", { error = false })
-	if parser == nil then
-		return ""
+
+local class_types = {
+	class_declaration = true,
+	class_definition = true,
+}
+local function get_first_class_name()
+	local parser = vim.treesitter.get_parser(0)
+	if not parser then
+		return nil
 	end
-	local tree = parser:parse()[1]
-	local root = tree:root()
 
-	local query = ts.query.parse(
-		"c_sharp",
-		[[
-    (file_scoped_namespace_declaration name: (qualified_name) @namespace)
-    (class_declaration name: (identifier) @class)
-  ]]
-	)
+	local root = parser:parse()[1]:root()
 
-	local namespace, class_name
-
-	for id, node in query:iter_captures(root, 0) do
-		local name = query.captures[id]
-
-		local text = vim.treesitter.get_node_text(node, 0)
-
-		if name == "namespace" then
-			namespace = text
-		elseif name == "class" then
-			class_name = text
+	local function find_class(n)
+		if class_types[n:type()] then
+			local node_name = n:field("name")[1]
+			if node_name then
+				return vim.treesitter.get_node_text(node_name, 0)
+			end
 		end
+		for child in n:iter_children() do
+			local name = find_class(child)
+			if name then
+				return name
+			end
+		end
+		return nil
 	end
 
-	if namespace and class_name then
-		return join({ namespace, class_name }, ".")
-	end
-
-	return ""
+	return find_class(root)
 end
----@return string
-local function get_current_java_file()
-	local ts = vim.treesitter
-	local parser = ts.get_parser(0, "java", { error = false })
-	if parser == nil then
+
+local function get_class_name()
+	local node = vim.treesitter.get_node()
+	if not node then
 		return ""
 	end
-	local tree = parser:parse()[1]
-	local root = tree:root()
 
-	local query = ts.query.parse("java", [[ (class_declaration name: (identifier) @class) ]])
-
-	local class_name
-
-	for id, node in query:iter_captures(root, 0) do
-		local name = query.captures[id]
-
-		local text = vim.treesitter.get_node_text(node, 0)
-
-		if name == "class" then
-			class_name = text
+	while node do
+		if class_types[node:type()] then
+			local node_name = node:field("name")[1]
+			if not node_name then
+				break
+			end
+			return vim.treesitter.get_node_text(node_name, 0)
 		end
+		node = node:parent()
 	end
 
-	if class_name then
-		return class_name
-	end
-
-	return ""
+	return get_first_class_name()
 end
 
 ---@type TestAdapter
@@ -111,7 +94,7 @@ local dotnet_adapter = {
 	enabled = file_exists(vim.fn.getcwd() .. "/*.sln"),
 	base_cmd = "dotnet test",
 	file_cmd = function(self)
-		local filename = get_current_cs_file()
+		local filename = get_class_name()
 		if filename == "" then
 			return ""
 		end
@@ -132,7 +115,7 @@ local java_mvn_adapter = {
 	enabled = file_exists(vim.fn.getcwd() .. "/pom.xml"),
 	base_cmd = "mvn test -Djacoco.skip=true",
 	file_cmd = function(self)
-		local filename = get_current_java_file()
+		local filename = get_class_name()
 		if filename == "" then
 			return ""
 		end
@@ -166,7 +149,7 @@ local java_gradle_adapter = {
 	enabled = file_exists(vim.fn.getcwd() .. "/build.gradle") or file_exists(vim.fn.getcwd() .. "/build.gradle.kts"),
 	base_cmd = "./gradlew test",
 	file_cmd = function(self)
-		local filename = get_current_java_file()
+		local filename = get_class_name()
 		if filename == "" then
 			return ""
 		end
