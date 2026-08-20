@@ -145,9 +145,34 @@ local java_mvn_adapter = {
 		return cmd
 	end,
 }
+-- Gradle only writes results to build/reports/tests/test/index.html by default.
+-- This init script streams each test's pass/fail/skip result plus a summary line
+-- to the console, so quick-test shows the outcome directly in its log.
+local gradle_init_script = vim.fn.stdpath("data") .. "/quick-test-gradle-init.gradle"
+vim.fn.writefile({
+	"allprojects {",
+	"    tasks.withType(Test).configureEach {",
+	"        testLogging {",
+	'            events "passed", "skipped", "failed"',
+	'            exceptionFormat = "full"',
+	"            showCauses = true",
+	"            showStackTraces = true",
+	"        }",
+	"        afterSuite { desc, result ->",
+	"            if (desc.parent == null) {",
+	'                println "Test result: ${result.resultType} - ${result.testCount} tests, ${result.successfulTestCount} passed, ${result.failedTestCount} failed, ${result.skippedTestCount} skipped"',
+	"            }",
+	"        }",
+	"    }",
+	"}",
+}, gradle_init_script)
+
 local java_gradle_adapter = {
 	enabled = file_exists(vim.fn.getcwd() .. "/build.gradle") or file_exists(vim.fn.getcwd() .. "/build.gradle.kts"),
-	base_cmd = "./gradlew test",
+	-- cleanTest forces the test task to actually run instead of being skipped as
+	-- UP-TO-DATE, which is what opens the --debug-jvm port (5005) on every run and
+	-- ensures the test logging below always fires. --init-script enables that logging.
+	base_cmd = './gradlew cleanTest test --init-script "' .. gradle_init_script .. '"',
 	file_cmd = function(self)
 		local filename = get_class_name()
 		if filename == "" then
