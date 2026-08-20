@@ -153,7 +153,7 @@ function M.setup()
             -- Register the per-session Java debug adapter (dap.adapters.java as a
             -- function), so each attach requests a fresh single-use debug server.
             -- Without this, only the first attach works until Neovim is restarted.
-            require("jdtls").setup_dap({ hotcodereplace = "auto" })
+            require("jdtls").setup_dap({ hotcodereplace = "auto", config_overrides = {} })
             local keymap = require("config.keymap")
             keymap.map(keymap.normalMode, keymap.leader .. "fM", function()
                 vim.lsp.buf.code_action({
