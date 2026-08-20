@@ -150,6 +150,10 @@ function M.setup()
             vim.opt.shiftwidth = tonumber(utils.getenv_or_default("SHIFT_WIDTH", "2"))
             vim.opt.tabstop = tonumber(utils.getenv_or_default("TAB_STOP", "2"))
             vim.opt.softtabstop = tonumber(utils.getenv_or_default("SOFT_TAB_STOP", "2"))
+            -- Register the per-session Java debug adapter (dap.adapters.java as a
+            -- function), so each attach requests a fresh single-use debug server.
+            -- Without this, only the first attach works until Neovim is restarted.
+            require("jdtls").setup_dap({ hotcodereplace = "auto" })
             local keymap = require("config.keymap")
             keymap.map(keymap.normalMode, keymap.leader .. "fM", function()
                 vim.lsp.buf.code_action({
