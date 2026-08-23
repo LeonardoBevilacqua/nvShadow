@@ -83,6 +83,10 @@ map(visualMode, ">", ">gv", { desc = "Indent right in visual mode" })
 map(normalMode, leader .. "Ss", getCommand("set spell"), { desc = "Set spell" })
 map(normalMode, leader .. "Sns", getCommand("set nospell"), { desc = "Set no spell" })
 
+-- wrap
+map(normalMode, leader .. "Sw", getCommand("set wrap"), { desc = "Set wrap" })
+map(normalMode, leader .. "Snw", getCommand("set nowrap"), { desc = "Set no wrap" })
+
 -- buffers
 map(normalMode, "<Tab>", getCommand("bnext"), { desc = "Next buffer" })
 map(normalMode, "<S-Tab>", getCommand("bprevious"), { desc = "Previous buffer" })
