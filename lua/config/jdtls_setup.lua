@@ -136,6 +136,35 @@ function M.setup()
                         staticImportsOrder = "before"
                     },
                 },
+                -- Use the project's Gradle wrapper (matches the CLI + the internal mirror, and auto-
+                -- tracks whatever version the repo pins). nvim-jdtls has no "trust wrapper" prompt, so
+                -- the wrapper checksum must be allow-listed here; checksums live under java.imports
+                -- (plural) by eclipse.jdt.ls design. Re-add/replace the checksum when the repo bumps its
+                -- Gradle version:  shasum -a 256 gradle/wrapper/gradle-wrapper.properties
+                import = {
+                    gradle = {
+                        enabled = true,
+                        wrapper = { enabled = true },
+                    },
+                },
+                imports = {
+                    gradle = {
+                        wrapper = {
+                            checksums = {
+                                { sha256 = "2f071f2c375104862e97d0b90f92171ac1b50d6e58f0aed0f571750a0604ecef", allowed = true },
+                            },
+                        },
+                    },
+                },
+                -- ROLLBACK: to pin a local Gradle install instead of the wrapper, delete the two blocks
+                -- above and uncomment this one (update the path if the repo bumps its Gradle version):
+                -- import = {
+                --     gradle = {
+                --         enabled = true,
+                --         wrapper = { enabled = false },   -- skip the wrapper so `home` is used, not embedded 8.9
+                --         home = "/Users/leonardobevilacqua/.gradle/wrapper/dists/gradle-8.14.3-bin/2mhqkze5szepjsv8kh4wtxgtq/gradle-8.14.3",
+                --     },
+                -- },
             },
 		},
 
