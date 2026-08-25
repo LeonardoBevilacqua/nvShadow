@@ -61,17 +61,20 @@ function M.setup()
 
 			-- 💀
 			"-jar",
-			vim.fn.stdpath("data")
-				.. package.config:sub(1, 1)
-				.. "mason"
-				.. package.config:sub(1, 1)
-				.. "packages"
-				.. package.config:sub(1, 1)
-				.. "jdtls"
-				.. package.config:sub(1, 1)
-				.. "plugins"
-				.. package.config:sub(1, 1)
-				.. "org.eclipse.equinox.launcher_1.7.100.v20251111-0406.jar",
+			vim.fn.glob(
+				vim.fn.stdpath("data")
+					.. package.config:sub(1, 1)
+					.. "mason"
+					.. package.config:sub(1, 1)
+					.. "packages"
+					.. package.config:sub(1, 1)
+					.. "jdtls"
+					.. package.config:sub(1, 1)
+					.. "plugins"
+					.. package.config:sub(1, 1)
+					.. "org.eclipse.equinox.launcher_*.jar",
+				true
+			),
 			-- 💀
 			"-configuration",
 			vim.fn.stdpath("data")
