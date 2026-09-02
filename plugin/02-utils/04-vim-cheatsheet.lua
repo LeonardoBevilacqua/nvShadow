@@ -61,6 +61,15 @@ local function show_vim_cheatsheet()
 				"`:copen or the shorter version `:cope`",
 			},
 		},
+		{
+			title = "Incremental selection",
+			description = "In Neovim 0.12, we have Incremental selection. Check `:h treesitter-incremental-selection` for details.",
+			details = {
+				"Use the keys `v` + `in` to decrease selection inner.",
+				"Use the keys `v` + `an` to increase selection outer.",
+				"In visual mode, use `in` and `an` only.",
+			},
+		},
 	}
 	for _, tip in ipairs(tips) do
 		table.insert(lines, format_tip(tip))
