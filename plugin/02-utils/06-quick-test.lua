@@ -80,7 +80,7 @@ local jest_adapter = {
 		return cmd .. (" %s %s"):format(file_arg, "--collectCoverageFrom=" .. vim.fn.expand("%:p:h"))
 	end,
 	debug_cmd = function(_, command)
-		local cmd = "npm run --node-options --inspect test"
+		local cmd = 'npm run test --node-options="--inspect-brk"'
 		if command == "QuickTestAll" then
 			return cmd
 		end
