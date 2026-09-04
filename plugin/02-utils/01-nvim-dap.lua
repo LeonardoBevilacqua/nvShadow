@@ -23,7 +23,6 @@ local function install_dap()
 		ensure_installed = {
 			-- Update this to ensure that you have the debuggers for the langs you want
 			"python",
-			"node2",
 			"js",
 			"java",
 		},
@@ -94,32 +93,36 @@ local function setup_java_debugger(dap)
 end
 
 local function setup_node_debugger(dap)
-	-- javascript
-	local node_debug2_path = vim.fn.stdpath("data") .. "/mason/packages/node-debug2-adapter"
+	local js_debug_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter"
 
-	dap.adapters.node2 = {
-		type = "executable",
-		command = "node",
-		args = { vim.fn.glob(node_debug2_path .. "/out/src/nodeDebug.js") },
+	dap.adapters["pwa-node"] = {
+		type = "server",
+		host = "localhost",
+		port = "${port}",
+		executable = {
+			command = "node",
+			args = { js_debug_path .. "/js-debug/src/dapDebugServer.js", "${port}" },
+		},
 	}
 	for _, lang in ipairs({ "javascript", "typescript" }) do
 		dap.configurations[lang] = {
 			{
 				name = "Launch",
-				type = "node2",
+				type = "pwa-node",
 				request = "launch",
 				program = "${file}",
 				cwd = vim.fn.getcwd(),
 				sourceMaps = true,
-				protocol = "inspector",
 				console = "integratedTerminal",
-				outFiles = { "**/dist/**/*.js" },
+				outFiles = { "${workspaceFolder}/dist/**/*.js" },
 			},
 			{
 				-- For this to work you need to make sure the node process is started with the `--inspect` flag.
 				name = "Attach to process",
-				type = "node2",
+				type = "pwa-node",
 				request = "attach",
+				cwd = vim.fn.getcwd(),
+				sourceMaps = true,
 				processId = function()
 					return require("dap.utils").pick_process({
 						filter = function(proc)
@@ -140,11 +143,13 @@ local function setup_node_debugger(dap)
 			},
 			{
 				name = "Attach to Node Process",
-				type = "node2",
+				type = "pwa-node",
 				request = "attach",
+				host = "localhost",
 				port = 9229,
+				cwd = vim.fn.getcwd(),
+				sourceMaps = true,
 				restart = true,
-				protocol = "inspector",
 				stopOnEntry = false,
 			},
 		}
