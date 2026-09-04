@@ -28,6 +28,15 @@ keymap.map(
 	keymap.getCommand("Telescope live_grep"),
 	{ desc = "telescope live grep" }
 )
+keymap.map(keymap.normalMode, keymap.leader .. "fW", function()
+	vim.ui.input({ prompt = "Glob pattern: " }, function(glob)
+		if glob == nil then
+			return
+		end
+
+		require("telescope.builtin").live_grep({ glob_pattern = glob ~= "" and glob or nil })
+	end)
+end, { desc = "telescope live grep with glob pattern" })
 keymap.map(
 	keymap.normalMode,
 	keymap.leader .. "fb",
