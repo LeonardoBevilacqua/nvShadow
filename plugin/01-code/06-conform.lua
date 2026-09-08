@@ -4,6 +4,9 @@ vim.pack.add({
 	"https://github.com/zapling/mason-conform.nvim",
 })
 
+local utils = require("config.utils")
+vim.g.disable_autoformat = utils.getenv_or_default("DISABLE_AUTOFORMAT", "false") == "true"
+
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
