@@ -172,7 +172,7 @@ local java_gradle_adapter = {
 	-- cleanTest forces the test task to actually run instead of being skipped as
 	-- UP-TO-DATE, which is what opens the --debug-jvm port (5005) on every run and
 	-- ensures the test logging below always fires. --init-script enables that logging.
-	base_cmd = './gradlew cleanTest test --init-script "' .. gradle_init_script .. '"',
+	base_cmd = './gradlew cleanTest test :api:test --init-script "' .. gradle_init_script .. '"',
 	file_cmd = function(self)
 		local filename = get_class_name()
 		if filename == "" then
