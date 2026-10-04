@@ -68,6 +68,10 @@ local function setup_lsp_servers()
 		server.capabilities = vim.tbl_deep_extend("force", get_capabilities(), server.capabilities or {})
 		vim.lsp.config(server_name, server)
 	end
+	-- enable servers outside mason
+	for _, server_name in pairs(languages.ensure_enabled) do
+		vim.lsp.enable(server_name)
+	end
 end
 
 local function configure_jdtls()

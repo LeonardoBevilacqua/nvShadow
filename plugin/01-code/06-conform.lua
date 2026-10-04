@@ -28,7 +28,9 @@ require("conform").setup({
 		}
 	end,
 })
-require("mason-conform").setup({})
+require("mason-conform").setup({
+    ignore_install = { "stylua" },
+})
 
 local keymap = require("config.keymap")
 keymap.map({ keymap.normalMode, keymap.visualMode }, keymap.leader .. "fm", function()

@@ -1,5 +1,6 @@
 local M = {}
 local lua_ls = {
+	cmd = { "lua-language-server" },
 	settings = {
 		Lua = {
 			completion = {
@@ -51,6 +52,7 @@ local omnisharp = {
 ---@field config table
 ---@field server_name? string
 ---@field skip? boolean
+---@filed skip_install? boolean
 
 ---@param key string
 ---@param language_config LanguageConfig
@@ -66,6 +68,16 @@ local function shouldNotSkip(_, language_config)
 	return not language_config.skip
 end
 
+---@param language_config LanguageConfig
+local function shouldNotSkipInstall(_, language_config)
+	return not language_config.skip_install
+end
+
+---@param language_config LanguageConfig
+local function shouldSkipInstalled(_, language_config)
+	return language_config.skip_install
+end
+
 ---@param acc { [string]: LanguageConfig }
 ---@param k string
 ---@param v LanguageConfig
@@ -76,7 +88,7 @@ end
 
 ---@type { [string]: LanguageConfig }
 local language_configs = {
-	lua_ls = { config = lua_ls },
+	lua_ls = { config = lua_ls, skip_install = true },
 	vtsls = { config = vtsls },
 	pylsp = { config = {} },
 	html = { config = html },
@@ -94,8 +106,10 @@ local language_configs = {
 }
 
 ---@type string[]
-M.ensure_installed = vim.iter(language_configs):map(mapServerName):totable()
+M.ensure_installed = vim.iter(language_configs):filter(shouldNotSkipInstall):map(mapServerName):totable()
 ---@type { [string]: LanguageConfig }
 M.language_configs = vim.iter(language_configs):filter(shouldNotSkip):fold({}, foldLanguageConfigs)
+---@type string[]
+M.ensure_enabled = vim.iter(language_configs):filter(shouldSkipInstalled):map(mapServerName):totable()
 
 return M
