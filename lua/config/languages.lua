@@ -47,12 +47,22 @@ local omnisharp = {
 		require("config.utils").message("OmniSharp attached to buffer " .. bufnr, true)
 	end,
 }
+local nixd = {
+	cmd = { "nixd" },
+	settings = {
+		nixd = {
+			formatting = {
+				command = { "alejandra" },
+			},
+		},
+	},
+}
 
 ---@class LanguageConfig
 ---@field config table
 ---@field server_name? string
 ---@field skip? boolean
----@filed skip_install? boolean
+---@field skip_install? boolean
 
 ---@param key string
 ---@param language_config LanguageConfig
@@ -103,6 +113,7 @@ local language_configs = {
 	rust_analyzer = { config = {} },
 	checkstyle = { config = {}, skip = true },
 	java_debug_adapter = { config = {}, server_name = "java-debug-adapter", skip = true },
+	nixd = { config = nixd, skip_install = true },
 }
 
 ---@type string[]
