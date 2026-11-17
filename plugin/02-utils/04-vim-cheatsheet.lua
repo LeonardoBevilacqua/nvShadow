@@ -70,6 +70,14 @@ local function show_vim_cheatsheet()
 				"In visual mode, use `in` and `an` only.",
 			},
 		},
+		{
+			title = "Tabbing during INSERT mode",
+			description = "We can tab while in INSERT mode.",
+			details = {
+				"Use the keys `Ctrl + t` to tab forward.",
+				"Use the keys `Ctrl + d` to tab backward.",
+			},
+		},
 	}
 	for _, tip in ipairs(tips) do
 		table.insert(lines, format_tip(tip))
