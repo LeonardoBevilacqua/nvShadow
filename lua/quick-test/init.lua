@@ -29,7 +29,9 @@ local function run_term_cmd(cmd)
 	else
 		vim.cmd("hor term " .. cmd)
 	end
-	vim.api.nvim_win_set_height(0, math.floor(vim.o.lines * 0.25))
+	local win = vim.api.nvim_get_current_win()
+	vim.api.nvim_win_set_height(win, math.floor(vim.o.lines * 0.25))
+	vim.wo[win].winfixheight = true
 end
 
 ---@param adapter TestAdapter
